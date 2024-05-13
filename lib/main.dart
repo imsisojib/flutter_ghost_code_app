@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate_code/my_app.dart';
 import 'package:flutter_boilerplate_code/src/core/application/token_service.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_cache_repository.dart';
@@ -14,12 +15,15 @@ void main() async {
   var token = di.sl<ICacheRepository>().fetchToken();
   di.sl<TokenService>().updateToken(token??"");  //update token will re-initialize wherever token was used
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => di.sl<ProviderCommon>()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => di.sl<ProviderCommon>()),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  });
+
 }
