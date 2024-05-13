@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: const Size(800, 360),
       builder: (_, app) {
         return MaterialApp(
           navigatorKey: navigationService.navigatorKey,
@@ -39,10 +39,10 @@ class _MyAppState extends State<MyApp> {
               child: child!,
             );
           },
-          title: 'MuseIQ',
+          title: 'The Ghost Code',
           themeMode: ThemeMode.dark,
           theme: buildDarkTheme(context),
-          initialRoute: Routes.homeScreen,
+          initialRoute: Routes.splashScreen,
           onGenerateRoute: RouterHelper.router.generator,
         );
       },

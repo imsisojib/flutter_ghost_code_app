@@ -15,7 +15,7 @@ void main() async {
   var token = di.sl<ICacheRepository>().fetchToken();
   di.sl<TokenService>().updateToken(token??"");  //update token will re-initialize wherever token was used
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]).then((_) {
     runApp(
       MultiProvider(
         providers: [
