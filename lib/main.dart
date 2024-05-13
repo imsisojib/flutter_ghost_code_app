@@ -9,11 +9,16 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();  //initializing Dependency Injection
+  await di.init(); //initializing Dependency Injection
 
   //update auth-token from cache [to check user logged-in or not]
   var token = di.sl<ICacheRepository>().fetchToken();
-  di.sl<TokenService>().updateToken(token??"");  //update token will re-initialize wherever token was used
+  di.sl<TokenService>().updateToken(token ?? ""); //update token will re-initialize wherever token was used
+
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [],
+  );
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]).then((_) {
     runApp(
@@ -25,5 +30,4 @@ void main() async {
       ),
     );
   });
-
 }

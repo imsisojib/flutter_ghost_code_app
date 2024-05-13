@@ -139,47 +139,77 @@ TextTheme _buildLightTextTheme(TextTheme base) {
 
 TextTheme _buildDarkTextTheme(TextTheme base) {
   return base.copyWith(
-    headlineMedium: GoogleFonts.rubik( //headline4
+    headlineLarge: GoogleFonts.gluten( //headline6
+      fontWeight: FontWeight.w600,
+      fontSize: 20.sp,
+      letterSpacing: 0.18,
+      color: AppColors.textColorDark,
+    ),
+    headlineMedium: GoogleFonts.gluten( //headline4
       fontWeight: FontWeight.w600,
       fontSize: 34.sp,
       letterSpacing: 0.4,
       height: 0.9,
       color: AppColors.textColorDark,
     ),
-    headlineSmall: GoogleFonts.rubik( //headline5
+    headlineSmall: GoogleFonts.gluten( //headline5
       fontWeight: FontWeight.bold,
       fontSize: 24.sp,
       letterSpacing: 0.27,
       color: AppColors.textColorDark,
     ),
-    headlineLarge: GoogleFonts.rubik( //headline6
+    titleLarge: GoogleFonts.gluten( //subtitle2
       fontWeight: FontWeight.w600,
-      fontSize: 20.sp,
-      letterSpacing: 0.18,
+      fontSize: 24.sp,
+      letterSpacing: -0.04,
       color: AppColors.textColorDark,
     ),
-    titleSmall: GoogleFonts.rubik( //subtitle2
+    titleMedium: GoogleFonts.gluten( //subtitle2
+      fontWeight: FontWeight.w600,
+      fontSize: 20.sp,
+      letterSpacing: -0.04,
+      color: AppColors.textColorDark,
+    ),
+    titleSmall: GoogleFonts.gluten( //subtitle2
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       letterSpacing: -0.04,
       color: AppColors.textColorDark,
     ),
-    bodyLarge: GoogleFonts.rubik( //bodyText1
+    bodyLarge: GoogleFonts.gluten( //bodyText1
       fontWeight: FontWeight.normal,
-      fontSize: 16.sp,
+      fontSize: 24.sp,
       letterSpacing: 0.2,
       color: AppColors.textColorDark,
     ),
-    bodyMedium: GoogleFonts.rubik(  //bodyText2
+    bodyMedium: GoogleFonts.gluten(
       fontWeight: FontWeight.normal,
-      fontSize: 14.sp,
+      fontSize: 20.sp,
       letterSpacing: -0.05,
       color: AppColors.textColorDark,
     ),
-    bodySmall: GoogleFonts.rubik( //caption
+    bodySmall: GoogleFonts.gluten( //caption
+      fontWeight: FontWeight.normal,
+      fontSize: 14.sp,
+      letterSpacing: 0.2,
+      color: AppColors.textColorDark,
+    ),
+    labelLarge: GoogleFonts.gluten( //bodyText1
+      fontWeight: FontWeight.normal,
+      fontSize: 16.sp,
+      letterSpacing: 0.4,
+      color: AppColors.textColorDark,
+    ),
+    labelMedium: GoogleFonts.gluten(
+      fontWeight: FontWeight.normal,
+      fontSize: 14.sp,
+      letterSpacing: 0.4,
+      color: AppColors.textColorDark,
+    ),
+    labelSmall: GoogleFonts.gluten( //caption
       fontWeight: FontWeight.normal,
       fontSize: 12.sp,
-      letterSpacing: 0.2,
+      letterSpacing: 0.4,
       color: AppColors.textColorDark,
     ),
   );
