@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -113,10 +114,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.signupByEmailScreen,
-                        );
+                        Fluttertoast.showToast(msg: "Coming soon!");
                       },
                     ),
                     SizedBox(
@@ -130,10 +128,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.loginByEmailScreen,
-                        );
+                        Fluttertoast.showToast(msg: "Coming soon!");
                       },
                     ),
                   ],
@@ -152,10 +147,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.signupByEmailScreen,
-                        );
+                        Fluttertoast.showToast(msg: "Coming soon!");
                       },
                     ),
                     SizedBox(
@@ -173,10 +165,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.green.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.loginByEmailScreen,
-                        );
+                        Fluttertoast.showToast(msg: "Coming soon!");
                       },
                     ),
                   ],
