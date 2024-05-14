@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate_code/my_app.dart';
@@ -19,6 +20,12 @@ void main() async {
     SystemUiMode.manual,
     overlays: [],
   );
+
+  //licencing google fonts
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]).then((_) {
     runApp(

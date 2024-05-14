@@ -91,44 +91,44 @@ ThemeData buildDarkTheme(BuildContext context) {
 
 TextTheme _buildLightTextTheme(TextTheme base) {
   return base.copyWith(
-    headlineMedium: GoogleFonts.workSans(  //headline4
+    headlineMedium: GoogleFonts.gluten(  //headline4
       fontWeight: FontWeight.w600,
       fontSize: 34,
       letterSpacing: 0.4,
       height: 0.9,
       color: AppColors.textColorLight,
     ),
-    headlineSmall: GoogleFonts.workSans(  //headline5
+    headlineSmall: GoogleFonts.gluten(  //headline5
       fontWeight: FontWeight.bold,
       fontSize: 24,
       letterSpacing: 0.27,
       color: AppColors.textColorLight,
     ),
-    headlineLarge: GoogleFonts.workSans(  //headline6
+    headlineLarge: GoogleFonts.gluten(  //headline6
       fontWeight: FontWeight.w600,
       fontSize: 20,
       letterSpacing: 0.18,
       color: AppColors.textColorLight,
     ),
-    titleSmall: GoogleFonts.workSans(   //subtitle2
+    titleSmall: GoogleFonts.gluten(   //subtitle2
       fontWeight: FontWeight.w600,
       fontSize: 14,
       letterSpacing: -0.04,
       color: AppColors.textColorLight,
     ),
-    bodyLarge: GoogleFonts.workSans(  //bodyText1
+    bodyLarge: GoogleFonts.gluten(  //bodyText1
       fontWeight: FontWeight.normal,
       fontSize: 16.sp,
       letterSpacing: 0.2,
       color: AppColors.textColorLight,
     ),
-    bodyMedium: GoogleFonts.workSans(  //bodyText2
+    bodyMedium: GoogleFonts.gluten(  //bodyText2
       fontWeight: FontWeight.normal,
       fontSize: 14.sp,
       letterSpacing: -0.05,
       color: AppColors.textColorLight,
     ),
-    bodySmall: GoogleFonts.workSans(  //caption
+    bodySmall: GoogleFonts.gluten(  //caption
       fontWeight: FontWeight.normal,
       fontSize: 12,
       letterSpacing: 0.2,
