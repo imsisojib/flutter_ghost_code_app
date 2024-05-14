@@ -42,8 +42,8 @@ class _MyAppState extends State<MyApp> {
           title: 'The Ghost Code',
           themeMode: ThemeMode.dark,
           theme: buildDarkTheme(context),
-          //initialRoute: Routes.splashScreen,
-          initialRoute: Routes.loginScreen,
+          initialRoute: Routes.splashScreen,
+          //initialRoute: Routes.loginScreen,
           onGenerateRoute: RouterHelper.router.generator,
         );
       },

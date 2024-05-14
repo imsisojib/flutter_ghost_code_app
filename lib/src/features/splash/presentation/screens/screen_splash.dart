@@ -3,7 +3,7 @@ import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ScreenSplash extends StatefulWidget{
+class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
 
   @override
@@ -11,10 +11,14 @@ class ScreenSplash extends StatefulWidget{
 }
 
 class _ScreenSplashState extends State<ScreenSplash> {
-
   void wait3secAndNavigateToHomeScreen() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pushNamed(context, Routes.homeScreen);
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      //Navigator.pushNamed(context, Routes.homeScreen);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Routes.loginScreen,
+        (params) => false,
+      );
     });
   }
 
@@ -31,10 +35,13 @@ class _ScreenSplashState extends State<ScreenSplash> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Image.asset(AppImages.appLogo,height: 230.h,width: 300.w,),
+          child: Image.asset(
+            AppImages.appLogo,
+            height: 230.h,
+            width: 300.w,
+          ),
         ),
       ),
     );
   }
-
 }
