@@ -82,8 +82,8 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
     return Container(
       height: 42.h,
       width: widget.width.w,
-      decoration: const BoxDecoration(
-        color: AppColors.primaryColorDark,
+      decoration: BoxDecoration(
+        color: AppColors.primaryColorDark.withOpacity(.6),
       ),
       child: TextFormField(
         autovalidateMode: widget.autovalidateMode,
@@ -110,7 +110,7 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
           widget.onSaved?.call(value);
         },
         cursorColor: Colors.blue,
-        style: theme.textTheme.bodyMedium,
+        style: theme.textTheme.bodyLarge,
         obscureText: widget.obscureText,
         keyboardType: widget.keyboardType,
         textInputAction: widget.textInputAction,
@@ -135,8 +135,8 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
           border: InputBorder.none,
           hintText: widget.hintText,
           //labelText: widget.labelText,
-          hintStyle: theme.textTheme.bodyMedium?.copyWith(
-            color: AppColors.textColorDark.withOpacity(.7),
+          hintStyle: theme.textTheme.bodyLarge?.copyWith(
+            color: AppColors.textColorDark,
           ),
           labelStyle: theme.textTheme.bodyMedium?.copyWith(
             color: AppColors.textColorDark,

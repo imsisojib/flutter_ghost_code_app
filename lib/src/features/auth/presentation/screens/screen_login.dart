@@ -35,7 +35,7 @@ class ScreenLogin extends StatelessWidget {
                         BasicButton(
                           width: 160.w,
                           buttonText: "Sign up",
-                          backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
+                          backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                           onPressed: (){
                             Navigator.pushNamed(context, Routes.signupByEmailScreen,);
                           },
@@ -46,7 +46,7 @@ class ScreenLogin extends StatelessWidget {
                         BasicButton(
                           width: 160.w,
                           buttonText: "Login",
-                          backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
+                          backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                           onPressed: (){
                             Navigator.pushNamed(context, Routes.loginByEmailScreen,);
                           },

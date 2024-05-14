@@ -91,7 +91,7 @@ class ScreenSignup extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      Routes.homeScreen,
+                      Routes.signupCompleteScreen,
                       (params) => false,
                     );
                   },
