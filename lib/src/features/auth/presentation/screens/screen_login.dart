@@ -3,6 +3,7 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/backgroun
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenLogin extends StatelessWidget {
@@ -43,6 +44,9 @@ class ScreenLogin extends StatelessWidget {
                           width: 160.w,
                           buttonText: "Login",
                           backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
+                          onPressed: (){
+                            Navigator.pushNamed(context, Routes.loginByEmailScreen,);
+                          },
                         ),
                       ],
                     ),

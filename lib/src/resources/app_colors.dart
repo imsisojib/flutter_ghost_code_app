@@ -21,7 +21,7 @@ class AppColors {
   static const Color errorColorLight = Color(0xFFFF4C5D);
 
   //dark mode
-  static const Color onPrimaryColorDark = Color(0xFF000000);
+  static const Color onPrimaryColorDark = Color(0xFF161616);
   static const Color primaryColorDark = Color(0xFFAD9898);
   static const Color onSecondaryColorDark = Color(0xFF000000);
   static const Color backgroundColorDark = Color(0xFF000000);
