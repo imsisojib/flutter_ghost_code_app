@@ -6,4 +6,7 @@ class AppImages{
   ///icons
   static const String iconGoogle = "assets/icons/icon_google.png";
   static const String iconApple = "assets/icons/icon_apple.png";
+  static const String iconLocation = "assets/icons/icon_location.png";
+  static const String iconSettings = "assets/icons/icon_settings.png";
+  static const String iconHome = "assets/icons/icon_home.png";
 }
