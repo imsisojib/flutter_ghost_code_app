@@ -36,6 +36,9 @@ class ScreenLogin extends StatelessWidget {
                           width: 160.w,
                           buttonText: "Sign up",
                           backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
+                          onPressed: (){
+                            Navigator.pushNamed(context, Routes.signupByEmailScreen,);
+                          },
                         ),
                         SizedBox(
                           width: 16.w,

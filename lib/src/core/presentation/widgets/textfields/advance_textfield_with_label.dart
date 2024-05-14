@@ -32,6 +32,7 @@ class AdvanceTextFormFieldWithLabel extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? suffix;
   final List<TextInputFormatter>? inputFormatters;
+  final double width;
 
   const AdvanceTextFormFieldWithLabel({
     super.key,
@@ -62,6 +63,7 @@ class AdvanceTextFormFieldWithLabel extends StatefulWidget {
     this.suffix,
     this.onTapOutside,
     this.inputFormatters,
+    this.width = 300,
   });
 
   @override
@@ -79,7 +81,7 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
 
     return Container(
       height: 42.h,
-      width: 300.w,
+      width: widget.width.w,
       decoration: const BoxDecoration(
         color: AppColors.primaryColorDark,
       ),
@@ -90,6 +92,7 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
         controller: widget.controller,
         focusNode: widget.focusNode,
         inputFormatters: widget.inputFormatters,
+        textAlign: TextAlign.center,
         onChanged: (value) {
           widget.onChanged?.call(value);
         },

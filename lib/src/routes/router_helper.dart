@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/screen_login.dart';
 import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/screen_login_by_email.dart';
+import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/screen_signup.dart';
 import 'package:flutter_boilerplate_code/src/features/errors/presentation/screens/screen_error.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
@@ -31,6 +32,10 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenLoginByEmail();
   });
+  static final Handler _signUpScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenSignup();
+  });
 
   static final Handler _notFoundHandler =
   Handler(handlerFunc: (context, parameters) => const ScreenError());
@@ -45,6 +50,7 @@ class RouterHelper {
     ///AUTH]
     router.define(Routes.loginScreen, handler: _loginScreenHandler, transitionType: TransitionType.cupertino);
     router.define(Routes.loginByEmailScreen, handler: _loginByEmailScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.signupByEmailScreen, handler: _signUpScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }
