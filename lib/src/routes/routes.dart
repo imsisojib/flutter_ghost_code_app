@@ -7,4 +7,7 @@ class Routes {
   static const String loginByEmailScreen = "/login/email-pass";
   static const String signupByEmailScreen = "/login/signup";
   static const String signupCompleteScreen = "/login/setup";
+
+  //MERCHANDISE
+  static const String merchandiseScreen = "/merchandise";
 }

@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/
 import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/screen_signup_complete.dart';
 import 'package:flutter_boilerplate_code/src/features/errors/presentation/screens/screen_error.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 
@@ -42,6 +43,12 @@ class RouterHelper {
     return const ScreenSignupComplete();
   });
 
+  ///MERCHANDISE
+  static final Handler _merchandiseScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenMerchandise();
+  });
+
   static final Handler _notFoundHandler =
   Handler(handlerFunc: (context, parameters) => const ScreenError());
 
@@ -57,6 +64,9 @@ class RouterHelper {
     router.define(Routes.loginByEmailScreen, handler: _loginByEmailScreenHandler, transitionType: TransitionType.cupertino);
     router.define(Routes.signupByEmailScreen, handler: _signUpScreenHandler, transitionType: TransitionType.cupertino);
     router.define(Routes.signupCompleteScreen, handler: _signUpCompleteScreenHandler, transitionType: TransitionType.cupertino);
+
+    ///MERCHANDISE
+    router.define(Routes.merchandiseScreen, handler: _merchandiseScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }
