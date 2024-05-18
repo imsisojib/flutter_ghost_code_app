@@ -213,6 +213,9 @@ class ScreenSettings extends StatelessWidget {
                   Expanded(
                     child: BasicButton(
                       buttonText: "Payment method",
+                      onPressed: (){
+                        Navigator.pushNamed(context, Routes.paymentMethodScreen,);
+                      },
                     ),
                   ),
                   SizedBox(

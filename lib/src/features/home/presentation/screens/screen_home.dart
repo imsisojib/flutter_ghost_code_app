@@ -128,7 +128,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.locationScreenHandler,);
+                        Navigator.pushNamed(context, Routes.locationScreen,);
                       },
                     ),
                   ],
@@ -147,7 +147,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.tutorialScreenHandler,);
+                        Navigator.pushNamed(context, Routes.tutorialScreen,);
                       },
                     ),
                     SizedBox(
@@ -192,7 +192,7 @@ class ScreenHome extends StatelessWidget {
                     child: IconButton(
                       icon: Image.asset(AppImages.iconSettings),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.settingsScreenHandler,);
+                        Navigator.pushNamed(context, Routes.settingsScreen,);
                       },
                     ),
                   ),

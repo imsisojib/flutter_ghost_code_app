@@ -15,15 +15,16 @@ class Routes {
   static const String buyTicketsScreen = "/tickets";
 
   ///LOCATIONS
-  static const String locationScreenHandler = "/locations";
+  static const String locationScreen = "/locations";
 
   ///TUTORIAL
-  static const String tutorialScreenHandler = "/tutorial";
+  static const String tutorialScreen = "/tutorial";
 
   ///GAME
   static const String gameScreenHandler = "/game";
 
   ///SETTINGS
-  static const String settingsScreenHandler = "/settings";
+  static const String settingsScreen = "/settings";
+  static const String paymentMethodScreen = "/settings/payment-method";
 
 }

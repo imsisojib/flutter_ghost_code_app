@@ -9,6 +9,7 @@ import 'package:flutter_boilerplate_code/src/features/game/presentation/screens/
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
 import 'package:flutter_boilerplate_code/src/features/locations/presentation/screens/screen_locations.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_payment_method.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_settings.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
 import 'package:flutter_boilerplate_code/src/features/tutorial/presentation/screens/screen_tutorial.dart';
@@ -80,6 +81,10 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenSettings();
   });
+  static final Handler _paymentScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenPaymentMethod();
+  });
 
 
   static final Handler _notFoundHandler =
@@ -104,13 +109,14 @@ class RouterHelper {
     ///BUY-TICKETS
     router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.cupertino);
     ///LOCATIONS
-    router.define(Routes.locationScreenHandler, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.locationScreen, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
     ///TUTORIAL
-    router.define(Routes.tutorialScreenHandler, handler: _tutorialScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.tutorialScreen, handler: _tutorialScreenHandler, transitionType: TransitionType.cupertino);
     ///GAME
     router.define(Routes.gameScreenHandler, handler: _gameScreenHandler, transitionType: TransitionType.cupertino);
     ///SETTINGS
-    router.define(Routes.settingsScreenHandler, handler: _settingsScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.settingsScreen, handler: _settingsScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.paymentMethodScreen, handler: _paymentScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }
