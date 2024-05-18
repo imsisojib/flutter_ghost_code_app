@@ -5,6 +5,8 @@ class AppImages{
   static const String demoTShirt = "assets/images/demo_tshirt.png";
   static const String emfMeter = "assets/images/emf_meter.png";
   static const String demoWaveForm = "assets/images/demo_wave_form.png";
+  static const String ad2 = "assets/images/demo_ad-2.png";
+  static const String ad1 = "assets/images/demo_ad1.png";
 
   ///icons
   static const String iconGoogle = "assets/icons/icon_google.png";

@@ -1,102 +1,141 @@
-import 'package:flutter/cupertino.dart';
+import 'package:ar_location_view/ar_location_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
-import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
-import 'package:flutter_boilerplate_code/src/core/presentation/widgets/textfields/advance_textfield_with_label.dart';
+import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/stroke_button.dart';
+import 'package:flutter_boilerplate_code/src/features/game/data/annotations.dart';
+import 'package:flutter_boilerplate_code/src/features/game/presentation/screens/widgets/annotations_view.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 
-class ScreenGame extends StatelessWidget {
+class ScreenGame extends StatefulWidget {
   const ScreenGame({super.key});
+
+  @override
+  State<ScreenGame> createState() => _ScreenGameState();
+}
+
+class _ScreenGameState extends State<ScreenGame> {
+
+  List<Annotation> annotations = [];
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: AppColors.onPrimaryColorDark,
-        automaticallyImplyLeading: false,
-        flexibleSpace: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
+      body: Background(
+        child: Row(
+          children: [
+            SizedBox(
+              width: 150.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(height: 32.h,),
+                  Image.asset(AppImages.emfMeter,height: 120.h,width: 120.h,),
+                  Image.asset(AppImages.demoWaveForm,height: 120.h,width: 120.h,),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Game",
-                        style: theme.textTheme.bodyMedium?.copyWith(
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColorLight.withOpacity(.6),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        child: Text(
+                          "Record",
+                          style: theme.textTheme.bodySmall,
+                        ),
+                      ),
+                      SizedBox(width: 8.w,),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColorLight.withOpacity(.6),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        child: Text(
+                          "Save",
+                          style: theme.textTheme.bodySmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 32.h,),
+                ],
+              ),
+            ),
+            Expanded(child: ArLocationWidget(
+              annotations: annotations,
+              showDebugInfoSensor: false,
+              annotationWidth: 180,
+              annotationHeight: 60,
+              radarPosition: RadarPosition.bottomCenter,
+              annotationViewBuilder: (context, annotation) {
+                return AnnotationView(
+                  key: ValueKey(annotation.uid),
+                  annotation: annotation as Annotation,
+                );
+              },
+              radarWidth: 160,
+              scaleWithDistance: false,
+              onLocationChange: (Position position) {
+                Future.delayed(const Duration(seconds: 5), () {
+                  annotations =
+                      fakeAnnotation(position: position, numberMaxPoi: 50);
+                  setState(() {});
+                });
+              },
+            ),),
+            SizedBox(
+              width: 150.w,
+              child: FittedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(height: 16.h,),
+                    Image.asset(AppImages.ad1,height: 110.h,width: 110.h,),
+                    Image.asset(AppImages.ad2,height: 110.h,width: 110.h,),
+                    Image.asset(AppImages.appLogo, height: 70,),
+                    SizedBox(height: 16.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                      ),
+                      child: StrokeButton(
+                        height: 36,
+                        borderRadius: 20,
+                        strokeColor: AppColors.red,
+                        strokeWidth: 2,
+                        width: 140.w,
+                        buttonText: "END TOUR",
+                        buttonTextStyle: theme.textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
+                        backgroundColor: AppColors.green.withOpacity(.6),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Nick",
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Image.asset(
-                            AppImages.demoAvatar,
-                            height: 24,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_left_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                      IconButton(
-                        iconSize: 20,
-                        onPressed: () {},
-                        icon: Image.asset(
-                          AppImages.iconHome,
-                          height: 24.h,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_right_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
+                    ),
+                    SizedBox(height: 16.h,),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      ),
-      body: Background(
-        child: Center(
-          child: Text("VR will be loaded here. Coming soon!"),
-        )
       ),
     );
   }
