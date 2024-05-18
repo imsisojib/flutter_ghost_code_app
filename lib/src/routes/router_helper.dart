@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/screen_buy_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/errors/presentation/screens/screen_error.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
+import 'package:flutter_boilerplate_code/src/features/locations/presentation/screens/screen_locations.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -56,6 +57,13 @@ class RouterHelper {
     return const ScreenBuyTickets();
   });
 
+  ///LOCATIONS
+  static final Handler _locationScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenLocations();
+  });
+
+
   static final Handler _notFoundHandler =
   Handler(handlerFunc: (context, parameters) => const ScreenError());
 
@@ -77,6 +85,8 @@ class RouterHelper {
 
     ///BUY-TICKETS
     router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.cupertino);
+    ///LOCATIONS
+    router.define(Routes.locationScreenHandler, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }

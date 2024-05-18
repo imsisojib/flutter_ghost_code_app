@@ -13,4 +13,7 @@ class Routes {
 
   ///BUY TICKETS
   static const String buyTicketsScreen = "/tickets";
+
+  ///LOCATIONS
+  static const String locationScreenHandler = "/locations";
 }

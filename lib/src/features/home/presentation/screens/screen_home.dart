@@ -128,7 +128,7 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Fluttertoast.showToast(msg: "Coming soon!");
+                        Navigator.pushNamed(context, Routes.locationScreenHandler,);
                       },
                     ),
                   ],
