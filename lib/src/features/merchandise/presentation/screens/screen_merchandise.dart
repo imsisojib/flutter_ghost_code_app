@@ -5,7 +5,6 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/s
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ScreenMerchandise extends StatelessWidget {
   const ScreenMerchandise({super.key});
@@ -66,12 +65,14 @@ class ScreenMerchandise extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Welcome Nick",
+                        "Nick",
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(width: 8.w,),
+                      SizedBox(
+                        width: 8.w,
+                      ),
                       Image.asset(
                         AppImages.demoAvatar,
                         height: 24,
@@ -85,118 +86,119 @@ class ScreenMerchandise extends StatelessWidget {
         ),
       ),
       body: Background(
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 16.h,
-                ),
-                Image.asset(
-                  AppImages.appLogo,
-                  height: 78.h,
-                  width: 100.w,
-                ),
-                SizedBox(
-                  height: 40.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BasicButton(
-                      width: 160.w,
-                      buttonText: "Merchandise",
-                      buttonTextStyle: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                      backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
-                      onPressed: () {
-                        Fluttertoast.showToast(msg: "Coming soon!");
-                      },
-                    ),
-                    SizedBox(
-                      width: 16.w,
-                    ),
-                    BasicButton(
-                      width: 160.w,
-                      buttonText: "Locations",
-                      buttonTextStyle: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                      backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
-                      onPressed: () {
-                        Fluttertoast.showToast(msg: "Coming soon!");
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BasicButton(
-                      width: 160.w,
-                      buttonText: "Tutorial",
-                      buttonTextStyle: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                      backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
-                      onPressed: () {
-                        Fluttertoast.showToast(msg: "Coming soon!");
-                      },
-                    ),
-                    SizedBox(
-                      width: 16.w,
-                    ),
-                    StrokeButton(
-                      height: 36,
-                      borderRadius: 20,
-                      strokeColor: AppColors.red,
-                      strokeWidth: 3,
-                      width: 160.w,
-                      buttonText: "LOAD GAME",
-                      buttonTextStyle: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                      backgroundColor: AppColors.green.withOpacity(.6),
-                      onPressed: () {
-                        Fluttertoast.showToast(msg: "Coming soon!");
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Positioned(
-              top: 16.h,
-              right: 24.w,
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Row(
+            children: [
+              Column(
                 children: [
-                  CircleAvatar(
-                    radius: 20,
-                    child: IconButton(
-                      icon: Image.asset(AppImages.iconLocation),
-                      onPressed: () {},
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "T-Shirts",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Hoodies",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Hats/Beanies",
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Admission",
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ),
                   SizedBox(
-                    width: 16.w,
+                    height: 8.h,
                   ),
-                  CircleAvatar(
-                    radius: 20,
-                    child: IconButton(
-                      icon: Image.asset(AppImages.iconSettings),
-                      onPressed: () {},
-                    ),
+                  BasicButton(
+                    width: 200,
+                    buttonText: "Buy Tickets",
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                width: 24.w,
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 180.h,
+                      child: GridView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: 12,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 6,
+                          crossAxisSpacing: 8.w,
+                          mainAxisSpacing: 8.w,
+                        ),
+                        itemBuilder: (_, index) {
+                          return Container(
+                              height: 100.h,
+                              width: 80.w,
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryColorLight.withOpacity(.6),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              child: FittedBox(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      AppImages.demoTShirt,
+                                      height: 56.h,
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      "\$20",
+                                      style: theme.textTheme.labelSmall,
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Row(
+                      children: [
+                        BasicButton(
+                          prefix: Image.asset(AppImages.iconCart,height: 28,),
+                          buttonText: "0",
+                          width: 80.w,
+                          buttonTextStyle: theme.textTheme.bodyMedium,
+                        ),
+                        SizedBox(width: 16.w,),
+                        BasicButton(
+                          buttonText: "Checkout",
+                          width: 200,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

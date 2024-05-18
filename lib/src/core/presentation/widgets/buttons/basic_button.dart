@@ -20,7 +20,7 @@ class BasicButton extends StatelessWidget {
     super.key,
     this.width,
     this.height = 40,
-    this.backgroundColor = AppColors.primaryColorDark,
+    this.backgroundColor,
     this.onPressed,
     this.suffix,
     this.prefix,
@@ -41,7 +41,7 @@ class BasicButton extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: EdgeInsets.zero,
         height: height!.h,
-        color: backgroundColor,
+        color: backgroundColor??const Color(0xffAD9898).withOpacity(.6),
         elevation: elevation,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius.h),
