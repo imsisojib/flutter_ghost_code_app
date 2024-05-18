@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/b
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/stroke_button.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenMerchandise extends StatelessWidget {
@@ -126,6 +127,9 @@ class ScreenMerchandise extends StatelessWidget {
                   BasicButton(
                     width: 200,
                     buttonText: "Buy Tickets",
+                    onPressed: (){
+                      Navigator.pushNamed(context, Routes.buyTicketsScreen,);
+                    },
                   ),
                 ],
               ),

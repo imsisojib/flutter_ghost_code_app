@@ -49,6 +49,8 @@ class AppColors {
   //#region Color Palette
   static const Color red = Color(0xffF33009);
   static const Color green = Color(0xff028C02);
+  static const Color blue = Color(0xff002BFF);
+  static const Color yellow = Color(0xffF0F030);
   //static const Color accentPurple = Color(0xff43127B);  //use primaryColor instead
   static const Color topSheet = Color(0xff301F43);
   static const Color bottomSheet = Color(0xff251830);

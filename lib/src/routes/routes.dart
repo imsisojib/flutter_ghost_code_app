@@ -10,4 +10,7 @@ class Routes {
 
   //MERCHANDISE
   static const String merchandiseScreen = "/merchandise";
+
+  ///BUY TICKETS
+  static const String buyTicketsScreen = "/tickets";
 }
