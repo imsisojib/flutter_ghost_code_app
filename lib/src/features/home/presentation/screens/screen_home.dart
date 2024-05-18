@@ -191,7 +191,9 @@ class ScreenHome extends StatelessWidget {
                     radius: 20,
                     child: IconButton(
                       icon: Image.asset(AppImages.iconSettings),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.settingsScreenHandler,);
+                      },
                     ),
                   ),
                 ],

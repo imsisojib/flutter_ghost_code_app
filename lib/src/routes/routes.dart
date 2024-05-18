@@ -22,4 +22,8 @@ class Routes {
 
   ///GAME
   static const String gameScreenHandler = "/game";
+
+  ///SETTINGS
+  static const String settingsScreenHandler = "/settings";
+
 }
