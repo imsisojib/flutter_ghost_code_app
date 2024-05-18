@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/
 import 'package:flutter_boilerplate_code/src/features/auth/presentation/screens/screen_signup_complete.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/screen_buy_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/errors/presentation/screens/screen_error.dart';
+import 'package:flutter_boilerplate_code/src/features/game/presentation/screens/screen_game.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
 import 'package:flutter_boilerplate_code/src/features/locations/presentation/screens/screen_locations.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
@@ -68,6 +69,11 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenTutorial();
   });
+  ///TUTORIAL
+  static final Handler _gameScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenGame();
+  });
 
 
   static final Handler _notFoundHandler =
@@ -95,6 +101,8 @@ class RouterHelper {
     router.define(Routes.locationScreenHandler, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
     ///TUTORIAL
     router.define(Routes.tutorialScreenHandler, handler: _tutorialScreenHandler, transitionType: TransitionType.cupertino);
+    ///GAME
+    router.define(Routes.gameScreenHandler, handler: _gameScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }

@@ -19,4 +19,7 @@ class Routes {
 
   ///TUTORIAL
   static const String tutorialScreenHandler = "/tutorial";
+
+  ///GAME
+  static const String gameScreenHandler = "/game";
 }
