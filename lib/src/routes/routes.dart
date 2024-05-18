@@ -16,4 +16,7 @@ class Routes {
 
   ///LOCATIONS
   static const String locationScreenHandler = "/locations";
+
+  ///TUTORIAL
+  static const String tutorialScreenHandler = "/tutorial";
 }

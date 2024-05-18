@@ -9,6 +9,7 @@ import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/
 import 'package:flutter_boilerplate_code/src/features/locations/presentation/screens/screen_locations.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
+import 'package:flutter_boilerplate_code/src/features/tutorial/presentation/screens/screen_tutorial.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 
 
@@ -62,6 +63,11 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenLocations();
   });
+  ///TUTORIAL
+  static final Handler _tutorialScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenTutorial();
+  });
 
 
   static final Handler _notFoundHandler =
@@ -87,6 +93,8 @@ class RouterHelper {
     router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.cupertino);
     ///LOCATIONS
     router.define(Routes.locationScreenHandler, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
+    ///TUTORIAL
+    router.define(Routes.tutorialScreenHandler, handler: _tutorialScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }

@@ -3,6 +3,8 @@ class AppImages{
   static const String background = "assets/images/ghostcode_background.png";
   static const String demoAvatar = "assets/images/demo_avatar.png";
   static const String demoTShirt = "assets/images/demo_tshirt.png";
+  static const String emfMeter = "assets/images/emf_meter.png";
+  static const String demoWaveForm = "assets/images/demo_wave_form.png";
 
   ///icons
   static const String iconGoogle = "assets/icons/icon_google.png";
