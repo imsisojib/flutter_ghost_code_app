@@ -26,5 +26,6 @@ class Routes {
   ///SETTINGS
   static const String settingsScreen = "/settings";
   static const String paymentMethodScreen = "/settings/payment-method";
+  static const String shareScreen = "/settings/share";
 
 }

@@ -9,8 +9,15 @@ class AppImages{
   ///icons
   static const String iconGoogle = "assets/icons/icon_google.png";
   static const String iconApple = "assets/icons/icon_apple.png";
-  static const String iconLocation = "assets/icons/icon_location.png";
+  static const String iconShare = "assets/icons/icon_share.png";
   static const String iconSettings = "assets/icons/icon_settings.png";
   static const String iconHome = "assets/icons/icon_home.png";
   static const String iconCart = "assets/icons/icon_cart.png";
+
+  ///social medias
+  static const String iconYoutube = "assets/icons/icon_youtube.png";
+  static const String iconX = "assets/icons/icon_x.png";
+  static const String iconTiktok = "assets/icons/icon_tiktok.png";
+  static const String iconInsta = "assets/icons/icon_insta.png";
+  static const String iconFb = "assets/icons/icon_fb.png";
 }

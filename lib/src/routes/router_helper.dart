@@ -11,6 +11,7 @@ import 'package:flutter_boilerplate_code/src/features/locations/presentation/scr
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_payment_method.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_settings.dart';
+import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_share.dart';
 import 'package:flutter_boilerplate_code/src/features/splash/presentation/screens/screen_splash.dart';
 import 'package:flutter_boilerplate_code/src/features/tutorial/presentation/screens/screen_tutorial.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -85,6 +86,10 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenPaymentMethod();
   });
+  static final Handler _shareScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenShare();
+  });
 
 
   static final Handler _notFoundHandler =
@@ -117,6 +122,7 @@ class RouterHelper {
     ///SETTINGS
     router.define(Routes.settingsScreen, handler: _settingsScreenHandler, transitionType: TransitionType.cupertino);
     router.define(Routes.paymentMethodScreen, handler: _paymentScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.shareScreen, handler: _shareScreenHandler, transitionType: TransitionType.cupertino);
   }
 
 }

@@ -6,7 +6,6 @@ import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -180,8 +179,10 @@ class ScreenHome extends StatelessWidget {
                   CircleAvatar(
                     radius: 20,
                     child: IconButton(
-                      icon: Image.asset(AppImages.iconLocation),
-                      onPressed: () {},
+                      icon: Image.asset(AppImages.iconShare),
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.shareScreen,);
+                      },
                     ),
                   ),
                   SizedBox(
