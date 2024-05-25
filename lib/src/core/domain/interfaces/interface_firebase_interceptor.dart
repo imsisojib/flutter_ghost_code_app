@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 
-abstract class IFirebaseDBInterceptor {
+abstract class IFirebaseInterceptor {
   FirebaseAuth getAuth();
 
   FirebaseFirestore getFirestore();
