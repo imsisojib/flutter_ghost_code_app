@@ -1,7 +1,18 @@
-class ApiResponse{
-  int statusCode;
-  dynamic result;
+class ApiResponse<T>{
+  int? statusCode;
+  T? data;
+  String? message;
 
-  ApiResponse({required this.statusCode, this.result});
+  ApiResponse({this.statusCode, this.data, this.message});
+
+  ApiResponse.fromJson(Map<String, dynamic> json){
+    statusCode = json["statusCode"];
+    try{
+      data = json["data"];
+    }catch(e){
+      //todo
+    }
+    message = json["message"];
+  }
 
 }

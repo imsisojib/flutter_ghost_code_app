@@ -6,12 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 
-class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
+class FirebaseInterceptor implements IFirebaseInterceptor {
   final FirebaseFirestore db;
   final FirebaseStorage storage;
   final FirebaseAuth auth;
 
-  FirebaseDBInterceptor({
+  FirebaseInterceptor({
     required this.db,
     required this.storage,
     required this.auth,
@@ -35,7 +35,7 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
   @override
   Future<ApiResponse> deleteDocument({required String collectionName, required String documentId,}) async {
     await db.collection(collectionName).doc(documentId).delete();
-    return ApiResponse(statusCode: 200, result: "Deleted successfully.");
+    return ApiResponse(statusCode: 200, data: "Deleted successfully.");
   }
 
   @override
@@ -51,7 +51,7 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
   }) async {
     DocumentSnapshot docSnap = await db.collection(collectionName).doc(documentId).get();
     if (docSnap.exists) {
-      return ApiResponse(statusCode: 200, result: docSnap.data());
+      return ApiResponse(statusCode: 200, data: docSnap.data());
     } else {
       return ApiResponse(
         statusCode: 404,
@@ -63,7 +63,7 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
   Future<ApiResponse> readCollection({required String collectionName}) async {
     QuerySnapshot querySnapshot = await db.collection(collectionName).get();
     if (querySnapshot.docs.isNotEmpty) {
-      return ApiResponse(statusCode: 200, result: querySnapshot.docs);
+      return ApiResponse(statusCode: 200, data: querySnapshot.docs);
     } else {
       return ApiResponse(
         statusCode: 404,
@@ -82,12 +82,12 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
       await db.collection(collectionName).doc().set(json);
       return ApiResponse(
         statusCode: 200,
-        result: "Saved Successfully!",
+        data: "Saved Successfully!",
       );
     } catch (e) {
       return ApiResponse(
         statusCode: 400,
-        result: "Failed to save!",
+        data: "Failed to save!",
       );
     }
   }
@@ -100,18 +100,18 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
     bool mergeData = false,
   }) async {
     if(auth.currentUser?.uid==null){
-      return ApiResponse(statusCode: 401, result: "Unauthorized User!",);
+      return ApiResponse(statusCode: 401, data: "Unauthorized User!",);
     }
     try {
       await db.collection(collectionName).doc(documentId).set(json, SetOptions(merge: mergeData,));
       return ApiResponse(
         statusCode: 200,
-        result: "Saved Successfully!",
+        data: "Saved Successfully!",
       );
     } catch (e) {
       return ApiResponse(
         statusCode: 400,
-        result: e,
+        data: e,
       );
     }
   }
@@ -129,10 +129,10 @@ class FirebaseDBInterceptor implements IFirebaseDBInterceptor {
       var downloadLink = await folderRef.getDownloadURL();
       return ApiResponse(
         statusCode: 200,
-        result: downloadLink,
+        data: downloadLink,
       );
     } catch (e) {
-      return ApiResponse(statusCode: 400, result: "Unable to upload photo. Please try again later.");
+      return ApiResponse(statusCode: 400, data: "Unable to upload photo. Please try again later.");
     }
   }
 

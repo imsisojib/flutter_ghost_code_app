@@ -1,5 +1,9 @@
 class Failure {
-  final String message;
+  String message;
+  int? statusCode;
 
-  Failure(this.message);
+  Failure({
+    required this.message,
+    this.statusCode,
+  });
 }
