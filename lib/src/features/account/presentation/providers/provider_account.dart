@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate_code/di_container.dart';
+import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
+import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
+import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_create_user_by_email_password.dart';
+import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_update_user_data.dart';
+import 'package:flutter_boilerplate_code/src/features/account/data/entities/user_model.dart';
+import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+class ProviderAccount extends ChangeNotifier {
+  //states
+  ELoading? _loading;
+
+  //getters
+  ELoading? get loading => _loading;
+
+  //setters
+  set loading(ELoading? flag){
+    _loading = flag;
+    notifyListeners();
+  }
+
+  //methods
+  Future<void> createUserByEmailAndPassword({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    loading = ELoading.submitButtonLoading;
+    RequestBodySignup requestBody = RequestBodySignup(
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    );
+
+    var result = await UseCaseCreateUserByEmailAndPassword(
+      repositoryAccount: sl(),
+    ).execute(requestBody);
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(
+          msg: error.message,
+        );
+      },
+      (success) {
+        Fluttertoast.showToast(
+          msg: success.message ?? "Success",
+        );
+        //save user data
+        //save user data
+        UserModel model = UserModel();
+        model.uid = success.data?.user?.uid;
+        model.email = requestBody.email;
+        model.firstName = requestBody.firstName;
+        model.lastName = requestBody.lastName;
+        updateUserData(model);
+
+        //navigate to complete-signup page
+        Navigator.pushNamedAndRemoveUntil(
+          sl<NavigationService>().navigatorKey.currentContext!,
+          Routes.signupCompleteScreen,
+          (params) => false,
+        );
+      },
+    );
+
+    loading = null;
+  }
+
+  Future<void> updateUserData(UserModel model) async {
+    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(model);
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(
+          msg: error.message,
+        );
+      },
+      (response) {
+        Fluttertoast.showToast(
+          msg: response,
+        );
+      },
+    );
+  }
+}
