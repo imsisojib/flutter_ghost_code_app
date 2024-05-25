@@ -21,7 +21,7 @@ Future<void> init() async {
 
   ///REPOSITORIES
   //#region Repositories
-  sl.registerLazySingleton<ICacheRepository>(() => CacheRepositoryImpl(sharedPreference: sl()));
+  sl.registerLazySingleton<IRepositoryCache>(() => RepositoryCacheImpl(sharedPreference: sl()));
   //#endregion
 
   ///USE-CASES

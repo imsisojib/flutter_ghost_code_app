@@ -13,7 +13,7 @@ void main() async {
   await di.init(); //initializing Dependency Injection
 
   //update auth-token from cache [to check user logged-in or not]
-  var token = di.sl<ICacheRepository>().fetchToken();
+  var token = di.sl<IRepositoryCache>().fetchToken();
   di.sl<TokenService>().updateToken(token ?? ""); //update token will re-initialize wherever token was used
 
   SystemChrome.setEnabledSystemUIMode(

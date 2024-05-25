@@ -2,9 +2,9 @@ import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_ca
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class CacheRepositoryImpl implements ICacheRepository{
+class RepositoryCacheImpl implements IRepositoryCache{
   final SharedPreferences sharedPreference;
-  CacheRepositoryImpl({required this.sharedPreference});
+  RepositoryCacheImpl({required this.sharedPreference});
 
   @override
   String? fetchToken() {
