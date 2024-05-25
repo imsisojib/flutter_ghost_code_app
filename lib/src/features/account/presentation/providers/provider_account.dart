@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/di_container.dart';
 import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
+import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_create_user_by_email_password.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_update_user_data.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/entities/user_model.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
+import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -17,7 +19,7 @@ class ProviderAccount extends ChangeNotifier {
   ELoading? get loading => _loading;
 
   //setters
-  set loading(ELoading? flag){
+  set loading(ELoading? flag) {
     _loading = flag;
     notifyListeners();
   }
@@ -85,5 +87,33 @@ class ProviderAccount extends ChangeNotifier {
         );
       },
     );
+  }
+
+  Future<void> completeSignup({
+    required String displayName,
+    int? age,
+    String? gender,
+  }) async {
+    loading = ELoading.submitButtonLoading;
+    UserModel model = UserModel();
+    model.uid = sl<IFirebaseInterceptor>().getAuth().currentUser?.uid;
+    model.displayName = displayName;
+    model.age = age;
+    model.gender = gender;
+    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(model);
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(msg: "Unable to complete signup. Please try again later.");
+      },
+      (response) {
+        Fluttertoast.showToast(msg: "Signup completed.");
+        Navigator.pushNamedAndRemoveUntil(
+          sl<NavigationService>().navigatorKey.currentContext!,
+          Routes.homeScreen,
+              (params) => false,
+        );
+      },
+    );
+    loading = null;
   }
 }

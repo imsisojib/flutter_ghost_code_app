@@ -54,9 +54,6 @@ class RepositoryAccount implements IRepositoryAccount {
     try {
       await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableUsers).doc(model.uid).set(
             model.toJson(),
-            SetOptions(
-              merge: true,
-            ),
           );
 
       return ApiResponse(
