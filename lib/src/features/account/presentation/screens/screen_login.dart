@@ -17,104 +17,100 @@ class ScreenLogin extends StatelessWidget {
       body: Background(
         child: Padding(
           padding: const EdgeInsets.all(34),
-          child: LayoutBuilder(
-            builder: (_, constraints){
-              return FittedBox(
-                child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.appLogo,
+                  height: 78.h,
+                  width: 100.w,
+                ),
+                SizedBox(height: 40.h,),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      AppImages.appLogo,
-                      height: 78.h,
-                      width: 100.w,
+                    BasicButton(
+                      width: 160.w,
+                      buttonText: "Sign up",
+                      backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
+                      onPressed: (){
+                        Navigator.pushNamed(context, Routes.signupByEmailScreen,);
+                      },
                     ),
-                    SizedBox(height: 40.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BasicButton(
-                          width: 160.w,
-                          buttonText: "Sign up",
-                          backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
-                          onPressed: (){
-                            Navigator.pushNamed(context, Routes.signupByEmailScreen,);
-                          },
-                        ),
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        BasicButton(
-                          width: 160.w,
-                          buttonText: "Login",
-                          backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
-                          onPressed: (){
-                            Navigator.pushNamed(context, Routes.loginByEmailScreen,);
-                          },
-                        ),
-                      ],
+                    SizedBox(
+                      width: 16.w,
                     ),
-                    SizedBox(height: 32.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 1,
-                          width: 88.w,
-                          color: AppColors.gray50,
-                        ),
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        Text(
-                          "Or",
-                          style: theme.textTheme.labelMedium,
-                        ),
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        Container(
-                          height: 1,
-                          width: 88.w,
-                          color: AppColors.gray50,
-                        )
-                      ],
+                    BasicButton(
+                      width: 160.w,
+                      buttonText: "Login",
+                      backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
+                      onPressed: (){
+                        Navigator.pushNamed(context, Routes.loginByEmailScreen,);
+                      },
                     ),
-                    SizedBox(height: 16.h,),
-                    Center(
-                      child: Text(
-                        "continue with",
-                        style: theme.textTheme.labelMedium,
-                      ),
+                  ],
+                ),
+                SizedBox(height: 32.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 1,
+                      width: 88.w,
+                      color: AppColors.gray50,
                     ),
-                    SizedBox(height: 16.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Image.asset(AppImages.iconApple),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(6),
-                            child: Image.asset(AppImages.iconGoogle),
-                          ),
-                        )
-                      ],
+                    SizedBox(
+                      width: 16.w,
+                    ),
+                    Text(
+                      "Or",
+                      style: theme.textTheme.labelMedium,
+                    ),
+                    SizedBox(
+                      width: 16.w,
+                    ),
+                    Container(
+                      height: 1,
+                      width: 88.w,
+                      color: AppColors.gray50,
                     )
                   ],
                 ),
-              );
-            },
+                SizedBox(height: 16.h,),
+                Center(
+                  child: Text(
+                    "continue with",
+                    style: theme.textTheme.labelMedium,
+                  ),
+                ),
+                SizedBox(height: 16.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Image.asset(AppImages.iconApple),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Image.asset(AppImages.iconGoogle),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
