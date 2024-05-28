@@ -54,12 +54,12 @@ class ProviderAccount extends ChangeNotifier {
         );
         //save user data
         //save user data
-        UserModel model = UserModel();
-        model.uid = success.data?.user?.uid;
-        model.email = requestBody.email;
-        model.firstName = requestBody.firstName;
-        model.lastName = requestBody.lastName;
-        updateUserData(model);
+        Map<String, dynamic> map = {};
+        map[UserModel.keyUid] = success.data?.user?.uid;
+        map[UserModel.keyEmail] = requestBody.email;
+        map[UserModel.keyFirstName] = requestBody.firstName;
+        map[UserModel.keyLastName] = requestBody.lastName;
+        updateUserData(map);
 
         //navigate to complete-signup page
         Navigator.pushNamedAndRemoveUntil(
@@ -73,8 +73,8 @@ class ProviderAccount extends ChangeNotifier {
     loading = null;
   }
 
-  Future<void> updateUserData(UserModel model) async {
-    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(model);
+  Future<void> updateUserData(Map<String, dynamic> data) async {
+    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(data);
     result.fold(
       (error) {
         Fluttertoast.showToast(
@@ -95,12 +95,15 @@ class ProviderAccount extends ChangeNotifier {
     String? gender,
   }) async {
     loading = ELoading.submitButtonLoading;
-    UserModel model = UserModel();
-    model.uid = sl<IFirebaseInterceptor>().getAuth().currentUser?.uid;
-    model.displayName = displayName;
-    model.age = age;
-    model.gender = gender;
-    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(model);
+
+    //save user data
+    Map<String, dynamic> map = {};
+    map[UserModel.keyUid] = sl<IFirebaseInterceptor>().getAuth().currentUser?.uid;
+    map[UserModel.keyDisplayName] = displayName;
+    map[UserModel.keyAge] = age;
+    map[UserModel.keyGender] = gender;
+
+    var result = await UseCaseUpdateUserData(repositoryAccount: sl()).execute(map);
     result.fold(
       (error) {
         Fluttertoast.showToast(msg: "Unable to complete signup. Please try again later.");

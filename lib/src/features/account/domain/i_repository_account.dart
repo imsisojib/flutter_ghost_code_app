@@ -5,5 +5,5 @@ import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/
 
 abstract class IRepositoryAccount{
   Future<ApiResponse<UserCredential?>> createUserByEmailAndPassword(RequestBodySignup requestBody);
-  Future<ApiResponse> updateUserInfo(UserModel model);
+  Future<ApiResponse> updateLoggedInUserData(Map<String, dynamic> json);
 }

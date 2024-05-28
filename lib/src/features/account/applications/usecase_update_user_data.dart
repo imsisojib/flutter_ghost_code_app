@@ -7,14 +7,14 @@ import 'package:flutter_boilerplate_code/src/features/account/data/entities/user
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
 import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 
-class UseCaseUpdateUserData implements IUseCase<UserModel, String> {
+class UseCaseUpdateUserData implements IUseCase<Map<String, dynamic>, String> {
   final IRepositoryAccount repositoryAccount;
 
   UseCaseUpdateUserData({required this.repositoryAccount});
 
   @override
-  Future<Either<Failure, String>> execute(UserModel request) async {
-    var response = await repositoryAccount.updateUserInfo(request);
+  Future<Either<Failure, String>> execute(Map<String, dynamic> request) async {
+    var response = await repositoryAccount.updateLoggedInUserData(request);
 
     if (response.statusCode == 200) {
       return Right(response.message??"Success");

@@ -26,7 +26,6 @@ class RepositoryAccount implements IRepositoryAccount {
       response.message = "Signup successful";
       response.statusCode = 200;
       response.data = credential;
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         response.message = 'The password provided is too weak.';
@@ -44,16 +43,20 @@ class RepositoryAccount implements IRepositoryAccount {
   }
 
   @override
-  Future<ApiResponse> updateUserInfo(UserModel model) async {
-    if (model.uid == null) {
+  Future<ApiResponse> updateLoggedInUserData(Map<String, dynamic> json) async {
+    var currentUserUid = firebaseInterceptor.getAuth().currentUser?.uid;
+    if (currentUserUid == null) {
       return ApiResponse(
-        statusCode: 400,
-        message: "Invalid user!",
+        statusCode: 401,
+        message: "User is not authorized!",
       );
     }
     try {
-      await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableUsers).doc(model.uid).set(
-            model.toJson(),
+      await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableUsers).doc(currentUserUid).set(
+            json,
+            SetOptions(
+              merge: true,
+            ),
           );
 
       return ApiResponse(
