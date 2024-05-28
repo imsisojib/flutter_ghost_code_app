@@ -136,7 +136,7 @@ class ProviderAccount extends ChangeNotifier {
         );
       },
       (response) {
-        Fluttertoast.showToast(msg: response.message??"");
+        Fluttertoast.showToast(msg: response.message ?? "");
         Navigator.pushNamedAndRemoveUntil(
           sl<NavigationService>().navigatorKey.currentContext!,
           Routes.homeScreen,
@@ -145,5 +145,14 @@ class ProviderAccount extends ChangeNotifier {
       },
     );
     loading = null;
+  }
+
+  Future<void> logout() async {
+    await sl<IFirebaseInterceptor>().getAuth().signOut();
+    Navigator.pushNamedAndRemoveUntil(
+      sl<NavigationService>().navigatorKey.currentContext!,
+      Routes.loginScreen,
+      (route) => false,
+    );
   }
 }

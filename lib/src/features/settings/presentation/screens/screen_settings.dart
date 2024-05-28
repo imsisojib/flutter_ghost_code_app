@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/textfields/advance_textfield_with_label.dart';
+import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -226,11 +227,7 @@ class ScreenSettings extends StatelessWidget {
                     child: BasicButton(
                       buttonText: "Logout",
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          Routes.loginScreen,
-                          (route) => false,
-                        );
+                        context.read<ProviderAccount>().logout();
                       },
                     ),
                   ),
