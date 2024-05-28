@@ -1,14 +1,30 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/stroke_button.dart';
+import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
+
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<ProviderAccount>().fetchLoggedInUserProfile();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,21 +78,36 @@ class ScreenHome extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Welcome Nick",
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(width: 8.w,),
-                      Image.asset(
-                        AppImages.demoAvatar,
-                        height: 24,
-                      ),
-                    ],
+                  Consumer<ProviderAccount>(
+                    builder: (_, providerAccount, child) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            providerAccount.currentModel?.displayName??"",
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Container(
+                            height: 24.h,
+                            width: 24.h,
+                            decoration: const BoxDecoration(
+                              color: AppColors.primaryColorLight,
+                              shape: BoxShape.circle,
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: providerAccount.currentModel?.profilePic ?? "",
+                              placeholder: (context, url) => const SizedBox(),
+                              errorWidget: (context, url, error) => const SizedBox(),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               )
@@ -113,7 +144,10 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.merchandiseScreen,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.merchandiseScreen,
+                        );
                       },
                     ),
                     SizedBox(
@@ -127,7 +161,10 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.locationScreen,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.locationScreen,
+                        );
                       },
                     ),
                   ],
@@ -146,7 +183,10 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.primaryColorDark.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.tutorialScreen,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.tutorialScreen,
+                        );
                       },
                     ),
                     SizedBox(
@@ -164,7 +204,10 @@ class ScreenHome extends StatelessWidget {
                       ),
                       backgroundColor: AppColors.green.withOpacity(.6),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.gameScreenHandler,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.gameScreenHandler,
+                        );
                       },
                     ),
                   ],
@@ -181,7 +224,10 @@ class ScreenHome extends StatelessWidget {
                     child: IconButton(
                       icon: Image.asset(AppImages.iconShare),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.shareScreen,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.shareScreen,
+                        );
                       },
                     ),
                   ),
@@ -193,7 +239,10 @@ class ScreenHome extends StatelessWidget {
                     child: IconButton(
                       icon: Image.asset(AppImages.iconSettings),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.settingsScreen,);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.settingsScreen,
+                        );
                       },
                     ),
                   ),

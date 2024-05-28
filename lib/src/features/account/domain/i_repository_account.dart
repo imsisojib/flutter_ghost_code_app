@@ -10,4 +10,5 @@ abstract class IRepositoryAccount{
   Future<ApiResponse<UserCredential?>> loginByEmailAndPassword(RequestBodyLogin requestBody);
   Future<ApiResponse> updateLoggedInUserData(Map<String, dynamic> json);
   Future<ApiResponse> fetchAvailableAvatars();
+  Future<ApiResponse> fetchLoggedInUserProfile();
 }

@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate_code/src/core/data/models/empty.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_create_user_by_email_password.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_fetch_available_avatars.dart';
+import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_fetch_loggedin_user_profile.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_signin_by_email_password.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_update_user_data.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/entities/avatar.dart';
@@ -19,10 +20,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ProviderAccount extends ChangeNotifier {
   //states
   ELoading? _loading;
+  UserModel? _currentUser;
   List<Avatar> _availableAvatars = [];
 
   //getters
   ELoading? get loading => _loading;
+
+  UserModel? get currentModel => _currentUser;
 
   List<Avatar> get availableAvatars => _availableAvatars;
 
@@ -171,6 +175,24 @@ class ProviderAccount extends ChangeNotifier {
       (error) {},
       (response) {
         _availableAvatars = response;
+        notifyListeners();
+      },
+    );
+    loading = null;
+  }
+
+  Future<void> fetchLoggedInUserProfile({
+    bool forceUpdate = false,
+    bool showLoading = true,
+  }) async {
+    if(_currentUser!=null && !forceUpdate) return;
+    if(showLoading) loading = ELoading.fetchingData;
+
+    var result = await UseCaseFetchLoggedInUserProfile(repositoryAccount: sl()).execute(Empty());
+    result.fold(
+      (error) {},
+      (response) {
+        _currentUser = response;
         notifyListeners();
       },
     );

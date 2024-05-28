@@ -80,9 +80,9 @@ class RepositoryAccount implements IRepositoryAccount {
     ApiResponse<UserCredential?> response = ApiResponse();
     try {
       final credential = await firebaseInterceptor.getAuth().signInWithEmailAndPassword(
-        email: requestBody.email,
-        password: requestBody.password,
-      );
+            email: requestBody.email,
+            password: requestBody.password,
+          );
 
       response.message = "Sign in successful";
       response.statusCode = 200;
@@ -106,7 +106,22 @@ class RepositoryAccount implements IRepositoryAccount {
   }
 
   @override
-  Future<ApiResponse> fetchAvailableAvatars() async{
+  Future<ApiResponse> fetchAvailableAvatars() async {
     return await firebaseInterceptor.readCollection(collectionName: ConfigFirebase.tableAvatars);
+  }
+
+  @override
+  Future<ApiResponse> fetchLoggedInUserProfile() async {
+    var currentUserId = firebaseInterceptor.getAuth().currentUser?.uid;
+    if(currentUserId==null){
+      return ApiResponse(
+        statusCode: 401,
+        message: "Session timeout!",
+      );
+    }
+    return await firebaseInterceptor.readDocument(
+      collectionName: ConfigFirebase.tableUsers,
+      documentId: currentUserId,
+    );
   }
 }
