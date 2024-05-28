@@ -4,8 +4,10 @@ import 'package:flutter_boilerplate_code/src/core/application/navigation_service
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_create_user_by_email_password.dart';
+import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_signin_by_email_password.dart';
 import 'package:flutter_boilerplate_code/src/features/account/applications/usecase_update_user_data.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/entities/user_model.dart';
+import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_login.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
 import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -113,7 +115,32 @@ class ProviderAccount extends ChangeNotifier {
         Navigator.pushNamedAndRemoveUntil(
           sl<NavigationService>().navigatorKey.currentContext!,
           Routes.homeScreen,
-              (params) => false,
+          (params) => false,
+        );
+      },
+    );
+    loading = null;
+  }
+
+  Future<void> loginByEmailAndPassword({required String email, required String password}) async {
+    loading = ELoading.submitButtonLoading;
+    RequestBodyLogin requestBody = RequestBodyLogin(
+      email: email,
+      password: password,
+    );
+    var result = await UseCaseSignInByEmailAndPassword(repositoryAccount: sl()).execute(requestBody);
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(
+          msg: error.message,
+        );
+      },
+      (response) {
+        Fluttertoast.showToast(msg: response.message??"");
+        Navigator.pushNamedAndRemoveUntil(
+          sl<NavigationService>().navigatorKey.currentContext!,
+          Routes.homeScreen,
+          (params) => false,
         );
       },
     );
