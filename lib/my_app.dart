@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
+import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_themes.dart';
 import 'package:flutter_boilerplate_code/src/routes/router_helper.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           title: 'The Ghost Code',
           themeMode: ThemeMode.dark,
           theme: buildDarkTheme(context),
-          initialRoute: Routes.splashScreen,
+          initialRoute: sl<IFirebaseInterceptor>().getAuth().currentUser?.uid!=null?Routes.homeScreen:Routes.loginScreen,
           //initialRoute: Routes.loginScreen,
           onGenerateRoute: RouterHelper.router.generator,
         );

@@ -12,6 +12,7 @@ class UserModel {
   static const String keyAge = "age";
   static const String keyCountry = "country";
   static const String keyDisplayName = "displayName";
+  static const String keyProfilePic = "profilePic";
 
   //variables
   String? uid;
@@ -25,6 +26,7 @@ class UserModel {
   String? country;
   int? age;
   String? displayName;
+  String? profilePic;
 
   UserModel({
     this.uid,
@@ -38,6 +40,7 @@ class UserModel {
     this.phone,
     this.age,
     this.displayName,
+    this.profilePic,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -52,6 +55,7 @@ class UserModel {
     country = json[keyCountry];
     age = json[keyAge];
     displayName = json[keyDisplayName];
+    profilePic = json[keyProfilePic];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +71,7 @@ class UserModel {
     data[keyCountry] = country;
     data[keyDisplayName] = displayName;
     data[keyAge] = age;
+    data[keyProfilePic] = profilePic;
     return data;
   }
 }
