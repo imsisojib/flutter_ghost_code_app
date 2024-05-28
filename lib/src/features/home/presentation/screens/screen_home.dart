@@ -41,16 +41,53 @@ class _ScreenHomeState extends State<ScreenHome> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text(
-                    "Home",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Home",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Consumer<ProviderAccount>(
+                        builder: (_, providerAccount, child) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                providerAccount.currentModel?.displayName??"",
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+                              Container(
+                                height: 24.h,
+                                width: 24.h,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primaryColorLight,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl: providerAccount.currentModel?.profilePic ?? "",
+                                  placeholder: (context, url) => const SizedBox(),
+                                  errorWidget: (context, url, error) => const SizedBox(),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
                         onPressed: () {},
@@ -78,39 +115,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                       ),
                     ],
                   ),
-                  Consumer<ProviderAccount>(
-                    builder: (_, providerAccount, child) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            providerAccount.currentModel?.displayName??"",
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Container(
-                            height: 24.h,
-                            width: 24.h,
-                            decoration: const BoxDecoration(
-                              color: AppColors.primaryColorLight,
-                              shape: BoxShape.circle,
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: providerAccount.currentModel?.profilePic ?? "",
-                              placeholder: (context, url) => const SizedBox(),
-                              errorWidget: (context, url, error) => const SizedBox(),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
