@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_boilerplate_code/src/config/config_firebase.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
+import 'package:flutter_boilerplate_code/src/features/account/data/entities/avatar.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/entities/user_model.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_login.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
@@ -102,5 +103,10 @@ class RepositoryAccount implements IRepositoryAccount {
     }
 
     return response;
+  }
+
+  @override
+  Future<ApiResponse> fetchAvailableAvatars() async{
+    return await firebaseInterceptor.readCollection(collectionName: ConfigFirebase.tableAvatars);
   }
 }
