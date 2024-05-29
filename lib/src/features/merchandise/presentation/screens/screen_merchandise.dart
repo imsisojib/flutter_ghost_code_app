@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
-import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/stroke_button.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/domain/i_repository_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class ScreenMerchandise extends StatelessWidget {
+class ScreenMerchandise extends StatefulWidget {
   const ScreenMerchandise({super.key});
+
+  @override
+  State<ScreenMerchandise> createState() => _ScreenMerchandiseState();
+}
+
+class _ScreenMerchandiseState extends State<ScreenMerchandise> {
+
+  @override
+  void initState() {
+    context.read<ProviderMerchandise>().fetchProductsTShirt();
+    context.read<ProviderMerchandise>().fetchProductsHoodie();
+    context.read<ProviderMerchandise>().fetchProductsHat();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,13 +130,13 @@ class ScreenMerchandise extends StatelessWidget {
                       style: theme.textTheme.bodyMedium,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Admission",
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: Text(
+                  //     "Admission",
+                  //     style: theme.textTheme.bodyMedium,
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 8.h,
                   ),

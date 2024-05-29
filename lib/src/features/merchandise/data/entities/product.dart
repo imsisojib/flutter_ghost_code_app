@@ -14,8 +14,8 @@ class Product{
     type = json['type'];
     name = json['name'];
     thumb = json['thumb'];
-    price = json['price'];
-    discountPrice = json['discountPrice'];
+    price = double.tryParse("${json['price']}");
+    discountPrice = double.tryParse("${json['discountPrice']}");
     stock = json['stock'];
     if(json['variants']!=null){
       variants = <Variant>[];

@@ -14,6 +14,9 @@ import 'package:flutter_boilerplate_code/src/features/account/data/repositories/
 import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/providers/provider_common.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/repositories/repository_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/domain/i_repository_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,6 +53,11 @@ Future<void> init() async {
       firebaseInterceptor: sl(),
     ),
   );
+  sl.registerLazySingleton<IRepositoryMerchandise>(
+    () => RepositoryMerchandise(
+      firebaseInterceptor: sl(),
+    ),
+  );
   //#endregion
 
   ///USE-CASES
@@ -60,8 +68,12 @@ Future<void> init() async {
   //region Providers
   sl.registerFactory(
     () => ProviderCommon(),
-  );sl.registerFactory(
+  );
+  sl.registerFactory(
     () => ProviderAccount(),
+  );
+  sl.registerFactory(
+    () => ProviderMerchandise(),
   );
 
   ///services
