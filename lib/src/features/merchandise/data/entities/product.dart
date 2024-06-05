@@ -1,4 +1,6 @@
-class Product{
+import 'package:flutter_boilerplate_code/src/features/merchandise/domain/abstract_product.dart';
+
+class Product implements IProduct{
   String? id;
   String? type;
   String? name;

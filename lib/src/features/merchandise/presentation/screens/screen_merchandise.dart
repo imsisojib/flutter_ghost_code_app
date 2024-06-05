@@ -211,6 +211,11 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
                                                 decoration: BoxDecoration(
                                                   color: AppColors.primaryColorLight.withOpacity(.6),
                                                   borderRadius: BorderRadius.circular(12),
+                                                  border: Border.all(
+                                                    color: providerMerchandise.findIsThisProductInCart(providerMerchandise.products[index])
+                                                        ? AppColors.yellow
+                                                        : AppColors.primaryColorLight.withOpacity(.6),
+                                                  ),
                                                 ),
                                                 padding: const EdgeInsets.all(8),
                                                 child: FittedBox(

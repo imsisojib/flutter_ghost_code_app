@@ -10,7 +10,6 @@ import 'package:flutter_boilerplate_code/src/features/merchandise/applications/u
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/cart_product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
-import 'package:flutter_boilerplate_code/src/helpers/debugger_helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ProviderMerchandise extends ChangeNotifier {
@@ -122,5 +121,10 @@ class ProviderMerchandise extends ChangeNotifier {
       },
     );
     fetchCartProducts();
+  }
+
+  bool findIsThisProductInCart(Product product) {
+    int found = _cartProducts.indexWhere((element) => element.id==product.id);
+    return found!=-1;
   }
 }
