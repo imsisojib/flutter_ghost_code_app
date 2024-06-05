@@ -6,25 +6,51 @@ import 'package:flutter_boilerplate_code/src/features/merchandise/applications/u
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_hoodie.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_tshirt.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
 import 'package:flutter_boilerplate_code/src/helpers/debugger_helper.dart';
 
 class ProviderMerchandise extends ChangeNotifier {
   //states
   ELoading? _loading;
-  List<Product> _productsByType = [];
+  List<Product> _products = [];
+  EProductType _productType = EProductType.tshirt;
 
   //getters
   ELoading? get loading => _loading;
 
-  List<Product> get productsByType => _productsByType;
+  List<Product> get products => _products;
+
+  EProductType get productType => _productType;
 
   //setters
   set loading(ELoading? state) {
     _loading = state;
+    notifyListeners();
+  }
+
+  set productType(EProductType type){
+    _productType = type;
+    notifyListeners();
+
+    switch(type){
+      case EProductType.tshirt:{
+        fetchProductsTShirt();
+        break;
+      }
+      case EProductType.hoodies: {
+        fetchProductsHoodie();
+        break;
+      }
+      case EProductType.hat:{
+        fetchProductsHat();
+        break;
+      }
+      default:
+    }
   }
 
   Future<void> fetchProductsTShirt() async {
-    _productsByType.clear();
+    _products.clear();
     loading = ELoading.fetchingData;
     var result = await UseCaseFetchProductsTShirt(repositoryMerchandise: sl()).execute(Empty());
     result.fold(
@@ -32,19 +58,14 @@ class ProviderMerchandise extends ChangeNotifier {
 
       },
       (response) {
-        Debugger.debug(
-          title: "Fetched TShirts ->",
-          data: response.length,
-        );
-        _productsByType = response;
-        notifyListeners();
+        _products = response;
       },
     );
     loading = null;
   }
 
   Future<void> fetchProductsHoodie() async {
-    //_productsByType.clear();
+    _products.clear();
     loading = ELoading.fetchingData;
     var result = await UseCaseFetchProductsHoodie(repositoryMerchandise: sl()).execute(Empty());
     result.fold(
@@ -56,15 +77,14 @@ class ProviderMerchandise extends ChangeNotifier {
               title: "Fetched Hoodies ->",
               data: response.length,
             );
-        // _productsByType = response;
-        // notifyListeners();
+        _products = response;
       },
     );
     loading = null;
   }
 
   Future<void> fetchProductsHat() async {
-    // _productsByType.clear();
+    _products.clear();
     loading = ELoading.fetchingData;
     var result = await UseCaseFetchProductsHat(repositoryMerchandise: sl()).execute(Empty());
     result.fold(
@@ -76,8 +96,7 @@ class ProviderMerchandise extends ChangeNotifier {
               title: "Fetched Hats ->",
               data: response.length,
             );
-        // _productsByType = response;
-        // notifyListeners();
+        _products = response;
       },
     );
     loading = null;
