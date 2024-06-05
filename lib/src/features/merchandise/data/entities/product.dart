@@ -32,6 +32,23 @@ class Product{
     }
   }
 
+  Map<String, dynamic> toJson(){
+    Map<String, dynamic> map = {};
+
+    map['id'] = id;
+    map['type'] = type;
+    map['name'] = name;
+    map['thumb'] = thumb;
+    map['price'] = price;
+    map['discountPrice'] = discountPrice;
+    map['stock'] = stock;
+    if(variants!=null){
+      map['variants'] = variants!.map((v) => v.toJson()).toList();
+    }
+    map['images'] = images;
+    return map;
+  }
+
   @override
   String toString() {
     return 'Product{id: $id, type: $type, name: $name, thumb: $thumb, price: $price, discountPrice: $discountPrice, stock: $stock, variants: $variants}';
@@ -45,6 +62,13 @@ class Variant{
   Variant.fromJson(Map<String, dynamic> json){
     size = json['size'];
     stock = json['stock'];
+  }
+
+  Map<String, dynamic> toJson(){
+    Map<String, dynamic> map = {};
+    map['size'] = size;
+    map['stock'] = stock;
+    return map;
   }
 
   @override
