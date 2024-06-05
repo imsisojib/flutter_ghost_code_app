@@ -14,7 +14,9 @@ import 'package:flutter_boilerplate_code/src/features/account/data/repositories/
 import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/providers/provider_common.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/repositories/repository_cart.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/repositories/repository_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/domain/i_repository_cart.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/domain/i_repository_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:get_it/get_it.dart';
@@ -56,6 +58,11 @@ Future<void> init() async {
   sl.registerLazySingleton<IRepositoryMerchandise>(
     () => RepositoryMerchandise(
       firebaseInterceptor: sl(),
+    ),
+  );
+  sl.registerLazySingleton<IRepositoryCart>(
+        () => RepositoryCart(
+      repositoryCache: sl(),
     ),
   );
   //#endregion

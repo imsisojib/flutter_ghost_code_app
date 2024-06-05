@@ -32,4 +32,21 @@ class RepositoryCacheImpl implements IRepositoryCache{
     await sharedPreference.setString('key_app_session_token', '');
   }
 
+  @override
+  List<String> fetchCartProducts() {
+    return sharedPreference.getStringList("key_cart_products")??[];
+  }
+
+  @override
+  void saveCartProduct(String encodedProduct) {
+    var products = fetchCartProducts();
+    products.add(encodedProduct);
+    updateCartProductsList(products);
+
+  }
+
+  Future<void> updateCartProductsList(List<String> encodedProducts) async {
+    await sharedPreference.setStringList("key_cart_products", encodedProducts);
+  }
+
 }

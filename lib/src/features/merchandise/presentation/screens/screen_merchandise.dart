@@ -26,6 +26,7 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       //initially fetching all products related to t-shirts
       context.read<ProviderMerchandise>().productType = EProductType.tshirt;
+      context.read<ProviderMerchandise>().fetchCartProducts();
     });
     super.initState();
   }
@@ -248,7 +249,7 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
                                 AppImages.iconCart,
                                 height: 28,
                               ),
-                              buttonText: "0",
+                              buttonText: "${providerMerchandise.cartProducts.length}",
                               width: 80.w,
                               buttonTextStyle: theme.textTheme.bodyMedium,
                             ),

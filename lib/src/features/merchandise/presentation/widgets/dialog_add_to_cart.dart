@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/cart_product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class DialogAddToCart extends StatefulWidget {
   final Product product;
@@ -150,7 +153,35 @@ class _DialogAddToCartState extends State<DialogAddToCart> {
           BasicButton(
             backgroundColor: const Color(0xffAD9898).withOpacity(.6),
             buttonText: "Add to cart",
-            onPressed: () {},
+            onPressed: () {
+              if(quantity<=0){
+                Fluttertoast.showToast(msg: "Please add quantity.");
+                return;
+              }
+              if(widget.product.variants!=null){
+                if(_selectedVariant==null){
+                  Fluttertoast.showToast(msg: "Please select size first.");
+                  return;
+                }
+                if(quantity>_selectedVariant!.stock!){
+                  Fluttertoast.showToast(msg: "Quantity exit stock limit for this size.");
+                  return;
+                }
+              }
+              //else means everything is okay
+              CartProduct cartProduct = CartProduct(
+                id: widget.product.id,
+                name: widget.product.name,
+                thumb: widget.product.thumb,
+                size: _selectedVariant?.size,
+                quantity: quantity,
+                price: widget.product.price,
+                discountPrice: widget.product.discountPrice,
+                type: widget.product.type,
+              );
+              context.read<ProviderMerchandise>().addToCart(cartProduct);
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
