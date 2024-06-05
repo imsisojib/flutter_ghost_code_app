@@ -5,6 +5,8 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/backgroun
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/widgets/dialog_add_to_cart.dart';
+import 'package:flutter_boilerplate_code/src/helpers/widget_helper.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
@@ -176,52 +178,65 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
                       children: [
                         providerMerchandise.loading == ELoading.fetchingData
                             ? const SizedBox(
-                          height: 180,
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
+                                height: 180,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
                             : SizedBox(
                                 height: 180.h,
-                                child: providerMerchandise.products.isNotEmpty?GridView.builder(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  itemCount: providerMerchandise.products.length,
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 6,
-                                    crossAxisSpacing: 8.w,
-                                    mainAxisSpacing: 8.w,
-                                  ),
-                                  itemBuilder: (_, index) {
-                                    return Container(
-                                        height: 100.h,
-                                        width: 80.w,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryColorLight.withOpacity(.6),
-                                          borderRadius: BorderRadius.circular(12),
+                                child: providerMerchandise.products.isNotEmpty
+                                    ? GridView.builder(
+                                        shrinkWrap: true,
+                                        padding: EdgeInsets.zero,
+                                        itemCount: providerMerchandise.products.length,
+                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 6,
+                                          crossAxisSpacing: 8.w,
+                                          mainAxisSpacing: 8.w,
                                         ),
-                                        padding: const EdgeInsets.all(8),
-                                        child: FittedBox(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              CachedNetworkImage(
-                                                imageUrl: providerMerchandise.products[index].thumb ?? "",
-                                                height: 56.h,
-                                              ),
-                                              SizedBox(
-                                                height: 4.h,
-                                              ),
-                                              Text(
-                                                "\$${providerMerchandise.products[index].price}",
-                                                style: theme.textTheme.labelSmall,
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                  },
-                                ):const Center(child: Text("No Product Found!"),),
+                                        itemBuilder: (_, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              WidgetHelper.showDialogWithDynamicContent(
+                                                content: DialogAddToCart(
+                                                  product: providerMerchandise.products[index],
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                                height: 100.h,
+                                                width: 80.w,
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.primaryColorLight.withOpacity(.6),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                                padding: const EdgeInsets.all(8),
+                                                child: FittedBox(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      CachedNetworkImage(
+                                                        imageUrl: providerMerchandise.products[index].thumb ?? "",
+                                                        height: 56.h,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 4.h,
+                                                      ),
+                                                      Text(
+                                                        "\$${providerMerchandise.products[index].price}",
+                                                        style: theme.textTheme.labelSmall,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                          );
+                                        },
+                                      )
+                                    : const Center(
+                                        child: Text("No Product Found!"),
+                                      ),
                               ),
                         SizedBox(
                           height: 24.h,
