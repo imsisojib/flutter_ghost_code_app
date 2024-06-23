@@ -5,5 +5,6 @@ abstract class IRepositoryCache{
   int? fetchCurrentUserId();
   List<String> fetchCartProducts();
   void saveCartProduct(String encodedProduct);
+  Future<void>? clearCart();
   void logout();
 }

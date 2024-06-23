@@ -49,4 +49,9 @@ class RepositoryCacheImpl implements IRepositoryCache{
     await sharedPreference.setStringList("key_cart_products", encodedProducts);
   }
 
+  @override
+  Future<void> clearCart() async {
+    await sharedPreference.setStringList("key_cart_products", []);
+  }
+
 }

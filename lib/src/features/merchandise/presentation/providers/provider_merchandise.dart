@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/di_container.dart';
+import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/empty.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_add_to_cart.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_clear_cart_products.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_cart_products.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_product_hats.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_hoodie.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_tshirt.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_place_order.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/cart_product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/requstbody/requestbody_checkout.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ProviderMerchandise extends ChangeNotifier {
   //states
@@ -124,7 +129,36 @@ class ProviderMerchandise extends ChangeNotifier {
   }
 
   bool findIsThisProductInCart(Product product) {
-    int found = _cartProducts.indexWhere((element) => element.id==product.id);
-    return found!=-1;
+    int found = _cartProducts.indexWhere((element) => element.id == product.id);
+    return found != -1;
+  }
+
+  double calculateCheckoutTotal() {
+    double total = 0;
+    _cartProducts.forEach((element) {
+      total += (element.price ?? 0)*(element.quantity ?? 0);
+    });
+
+    return total;
+  }
+
+  Future<void> placeOrder(RequestBodyCheckout request) async {
+    var result = await UseCasePlaceOrder(repositoryMerchandise: sl()).execute(request);
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(
+          msg: error.message,
+        );
+      },
+      (success) async {
+        Fluttertoast.showToast(
+          msg: success,
+        );
+
+        //clearing cart
+        await UseCaseClearCart(repositoryCart: sl()).execute(Empty());
+        fetchCartProducts();
+      },
+    );
   }
 }

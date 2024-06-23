@@ -3,6 +3,7 @@ class ConfigFirebase{
   static const String tableUsers = "users";
   static const String tableAvatars = "avatars";
   static const String tableShop = "shop";
+  static String tableOrders = "orders";
 
   //storage_folders
   static const String storageAvatars = "avatars";

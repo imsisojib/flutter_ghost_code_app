@@ -6,11 +6,13 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/b
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/widgets/dialog_add_to_cart.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/widgets/dialog_checkout.dart';
 import 'package:flutter_boilerplate_code/src/helpers/widget_helper.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ScreenMerchandise extends StatefulWidget {
@@ -264,6 +266,16 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
                             BasicButton(
                               buttonText: "Checkout",
                               width: 200,
+                              onPressed: () {
+                                if (providerMerchandise.cartProducts.isEmpty) {
+                                  Fluttertoast.showToast(msg: "Your cart is empty.");
+                                  return;
+                                }
+
+                                WidgetHelper.showDialogWithDynamicContent(
+                                  content: const DialogCheckout(),
+                                );
+                              },
                             ),
                           ],
                         )
