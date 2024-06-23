@@ -135,9 +135,9 @@ class ProviderMerchandise extends ChangeNotifier {
 
   double calculateCheckoutTotal() {
     double total = 0;
-    _cartProducts.forEach((element) {
+    for (var element in _cartProducts) {
       total += (element.price ?? 0)*(element.quantity ?? 0);
-    });
+    }
 
     return total;
   }

@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/textfields/advance_textfield_with_label.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
-import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/cart_product.dart';
-import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/requstbody/requestbody_checkout.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
-import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class DialogCheckout extends StatefulWidget {
@@ -27,7 +23,7 @@ class _DialogCheckoutState extends State<DialogCheckout> {
   @override
   void initState() {
     customerNameController = TextEditingController();
-    customerNameController?.text = context.read<ProviderAccount>().currentModel?.firstName ?? "";
+    customerNameController?.text = "${context.read<ProviderAccount>().currentModel?.firstName ?? ""} ${context.read<ProviderAccount>().currentModel?.lastName ?? ""}";
     phoneNumberController = TextEditingController();
     addressController = TextEditingController();
     super.initState();
