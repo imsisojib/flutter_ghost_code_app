@@ -4,4 +4,5 @@ import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/
 abstract class IRepositoryCart{
   Future<ApiResponse> fetchCartProducts();
   Future<ApiResponse> saveToCart(CartProduct cartProduct);
+  Future<ApiResponse> clearCart();
 }

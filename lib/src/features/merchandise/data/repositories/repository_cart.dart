@@ -28,4 +28,13 @@ class RepositoryCart implements IRepositoryCart {
       statusCode: 200,
     );
   }
+
+  @override
+  Future<ApiResponse> clearCart() async{
+    await repositoryCache.clearCart();
+
+    return ApiResponse(
+      statusCode: 200,
+    );
+  }
 }
