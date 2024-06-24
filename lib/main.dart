@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate_code/my_app.dart';
 import 'package:flutter_boilerplate_code/src/core/application/token_service.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_cache_repository.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/providers/provider_game_events.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/providers/provider_common.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'di_container.dart' as di;
@@ -41,6 +42,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => di.sl<ProviderCommon>()),
           ChangeNotifierProvider(create: (context) => di.sl<ProviderAccount>()),
           ChangeNotifierProvider(create: (context) => di.sl<ProviderMerchandise>()),
+          ChangeNotifierProvider(create: (context) => di.sl<ProviderGameEvents>()),
         ],
         child: const MyApp(),
       ),

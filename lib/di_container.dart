@@ -13,6 +13,9 @@ import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_fi
 import 'package:flutter_boilerplate_code/src/features/account/data/repositories/repository_account.dart';
 import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/repositories/repository_game_events.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/domain/i_repository_game_events.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/providers/provider_game_events.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/providers/provider_common.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/repositories/repository_cart.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/repositories/repository_merchandise.dart';
@@ -61,8 +64,13 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<IRepositoryCart>(
-        () => RepositoryCart(
+    () => RepositoryCart(
       repositoryCache: sl(),
+    ),
+  );
+  sl.registerLazySingleton<IRepositoryGameEvents>(
+    () => RepositoryGameEvents(
+      firebaseInterceptor: sl(),
     ),
   );
   //#endregion
@@ -81,6 +89,9 @@ Future<void> init() async {
   );
   sl.registerFactory(
     () => ProviderMerchandise(),
+  );
+  sl.registerFactory(
+        () => ProviderGameEvents(),
   );
 
   ///services
