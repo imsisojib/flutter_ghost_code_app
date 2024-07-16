@@ -71,4 +71,37 @@ class RepositoryGameEvents implements IRepositoryGameEvents {
 
     return apiResponse;
   }
+
+  @override
+  Future<ApiResponse> fetchTickets() async {
+    ApiResponse apiResponse = ApiResponse();
+    String gameEventId = "08082024Tour02";
+
+    try {
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).get();
+      Debugger.debug(
+        title: "RepositoryGameEvents.fetchTickets()",
+        data: documentSnapshot.data(),
+      );
+
+
+
+      apiResponse.message = "Ticket is generated successfully!";
+      apiResponse.statusCode = 200;
+    } catch (e) {
+      //if any error
+      apiResponse.message = "Unable to fetch tickets.";
+      apiResponse.statusCode = 501;
+    }
+
+    Debugger.debug(
+      title: "RepositoryGameEvents.generateTickets(): status-code",
+      data: apiResponse.statusCode,
+    );
+
+    return apiResponse;
+  }
+
+
+
 }

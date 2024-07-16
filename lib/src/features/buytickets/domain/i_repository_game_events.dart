@@ -3,4 +3,5 @@ import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/
 
 abstract class IRepositoryGameEvents{
   Future<ApiResponse> generateTickets();
+  Future<ApiResponse> fetchTickets();
 }
