@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_boilerplate_code/src/config/config_firebase.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/game_event.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/domain/i_repository_game_events.dart';
 import 'package:flutter_boilerplate_code/src/helpers/debugger_helper.dart';
@@ -79,23 +80,39 @@ class RepositoryGameEvents implements IRepositoryGameEvents {
 
     try {
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).get();
-      Debugger.debug(
-        title: "RepositoryGameEvents.fetchTickets()",
-        data: documentSnapshot.data(),
-      );
+      if(documentSnapshot.exists){
+        GameEvent gameEvent = GameEvent.fromJson(documentSnapshot.data()!);
+        //now fetch tickets
+        List<Ticket> _tickets = [];
+        QuerySnapshot<Map<String, dynamic>> ticketSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).collection("tickets").get();
+        for(DocumentSnapshot<Map<String, dynamic>> doc in ticketSnapshot.docs){
+          _tickets.add(Ticket.fromJson(doc.data()??{}));
+        }
+        gameEvent.tickets = _tickets;
 
-
-
-      apiResponse.message = "Ticket is generated successfully!";
-      apiResponse.statusCode = 200;
+        apiResponse.data = gameEvent;
+        apiResponse.message = "Ticket is generated successfully!";
+        apiResponse.statusCode = 200;
+      }else{
+        apiResponse.message = "No data found!";
+        apiResponse.statusCode = 400;
+      }
     } catch (e) {
       //if any error
+      Debugger.debug(
+        title: "RepositoryGameEvents.fetchTickets(): parsing-error",
+        data: e,
+      );
       apiResponse.message = "Unable to fetch tickets.";
       apiResponse.statusCode = 501;
     }
 
     Debugger.debug(
-      title: "RepositoryGameEvents.generateTickets(): status-code",
+      title: "RepositoryGameEvents.fetchTickets(): response",
+      data: apiResponse.data,
+    );
+    Debugger.debug(
+      title: "RepositoryGameEvents.fetchTickets(): status-code",
       data: apiResponse.statusCode,
     );
 
