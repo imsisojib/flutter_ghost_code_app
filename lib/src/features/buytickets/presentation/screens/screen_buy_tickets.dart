@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/providers/provider_game_events.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
@@ -166,14 +167,34 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
+                          Expanded(
+                            child: GridView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: providerGameEvents.mappedTickets.keys.length,
+                              shrinkWrap: true,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                //mainAxisSpacing: 50.h,
+                                //childAspectRatio: 5.0,
+                                mainAxisExtent: 70.h,
+                              ),
+                              itemBuilder: (_, index) {
+
+                                List<String> keys = providerGameEvents.mappedTickets.keys.toList();
+                                keys.sort((a,b)=> a.compareTo(b));
+                                String keySlot = keys[index];
+                                List<Ticket> tickets = providerGameEvents.mappedTickets[keySlot]?.toList()??[];
+                                try{
+                                  tickets.sort((a,b)=> a.serial!.compareTo(b.serial!));
+                                }catch(e){
+                                  // sorting error
+                                }
+
+                                return Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "8PM:",
+                                      "$keySlot:",
                                       style: theme.textTheme.bodySmall,
                                     ),
                                     SizedBox(
@@ -181,16 +202,18 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                     ),
                                     Expanded(
                                       child: GridView.builder(
+                                        physics: const NeverScrollableScrollPhysics(),
                                         padding: EdgeInsets.zero,
-                                        itemCount: 30,
+                                        itemCount: tickets.length,
                                         shrinkWrap: true,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 10,
-                                          childAspectRatio: 1.5,
+                                          //childAspectRatio: 1.5,
+                                          mainAxisExtent: 20.h,
                                         ),
                                         itemBuilder: (_, index) {
                                           return Text(
-                                            "${index * 2}".padLeft(2, "0"),
+                                            "${tickets[index].serial}",
                                             style: theme.textTheme.bodySmall?.copyWith(
                                               color: AppColors.yellow,
                                             ),
@@ -199,124 +222,9 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                       ),
                                     ),
                                   ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 32.w,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "10PM:",
-                                      style: theme.textTheme.bodySmall,
-                                    ),
-                                    SizedBox(
-                                      width: 8.w,
-                                    ),
-                                    Expanded(
-                                      child: GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: 30,
-                                        shrinkWrap: true,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 10,
-                                          childAspectRatio: 1.5,
-                                        ),
-                                        itemBuilder: (_, index) {
-                                          return Text(
-                                            "${index * 2}".padLeft(2, "0"),
-                                            style: theme.textTheme.bodySmall?.copyWith(
-                                              color: AppColors.yellow,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "9PM:",
-                                      style: theme.textTheme.bodySmall,
-                                    ),
-                                    SizedBox(
-                                      width: 8.w,
-                                    ),
-                                    Expanded(
-                                      child: GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: 30,
-                                        shrinkWrap: true,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 10,
-                                          childAspectRatio: 1.5,
-                                        ),
-                                        itemBuilder: (_, index) {
-                                          return Text(
-                                            "${index * 2}".padLeft(2, "0"),
-                                            style: theme.textTheme.bodySmall?.copyWith(
-                                              color: AppColors.yellow,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 32.w,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "11PM:",
-                                      style: theme.textTheme.bodySmall,
-                                    ),
-                                    SizedBox(
-                                      width: 8.w,
-                                    ),
-                                    Expanded(
-                                      child: GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        itemCount: 30,
-                                        shrinkWrap: true,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 10,
-                                          childAspectRatio: 1.5,
-                                        ),
-                                        itemBuilder: (_, index) {
-                                          return Text(
-                                            "${index * 2}".padLeft(2, "0"),
-                                            style: theme.textTheme.bodySmall?.copyWith(
-                                              color: AppColors.yellow,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 12.h,
+                                );
+                              },
+                            ),
                           ),
                           BasicButton(
                             buttonText: "Schedule tour",

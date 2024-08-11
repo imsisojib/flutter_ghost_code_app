@@ -11,11 +11,12 @@ class ProviderGameEvents extends ChangeNotifier {
   //states
   ELoading? _loading;
   GameEvent? _event;
+  Map<String, List<Ticket>> _mappedTickets = {};
 
   //getters
   ELoading? get loading => _loading;
   GameEvent? get event => _event;
-  Map<String, List<Ticket>> _mappedTickets = {};
+  Map<String, List<Ticket>> get mappedTickets => _mappedTickets;
 
   //setters
   set loading(ELoading? state) {
