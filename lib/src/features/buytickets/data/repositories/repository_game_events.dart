@@ -3,6 +3,7 @@ import 'package:flutter_boilerplate_code/src/config/config_firebase.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/game_event.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/request_bodys/requestbody_purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/domain/i_repository_game_events.dart';
 import 'package:flutter_boilerplate_code/src/helpers/debugger_helper.dart';
@@ -79,21 +80,23 @@ class RepositoryGameEvents implements IRepositoryGameEvents {
     String gameEventId = "08082024Tour02";
 
     try {
-      DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).get();
-      if(documentSnapshot.exists){
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+          await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).get();
+      if (documentSnapshot.exists) {
         GameEvent gameEvent = GameEvent.fromJson(documentSnapshot.data()!);
         //now fetch tickets
         List<Ticket> _tickets = [];
-        QuerySnapshot<Map<String, dynamic>> ticketSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).collection("tickets").get();
-        for(DocumentSnapshot<Map<String, dynamic>> doc in ticketSnapshot.docs){
-          _tickets.add(Ticket.fromJson(doc.data()??{}));
+        QuerySnapshot<Map<String, dynamic>> ticketSnapshot =
+            await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(gameEventId).collection("tickets").get();
+        for (DocumentSnapshot<Map<String, dynamic>> doc in ticketSnapshot.docs) {
+          _tickets.add(Ticket.fromJson(doc.data() ?? {}));
         }
         gameEvent.tickets = _tickets;
 
         apiResponse.data = gameEvent;
         apiResponse.message = "Ticket is generated successfully!";
         apiResponse.statusCode = 200;
-      }else{
+      } else {
         apiResponse.message = "No data found!";
         apiResponse.statusCode = 400;
       }
@@ -119,6 +122,58 @@ class RepositoryGameEvents implements IRepositoryGameEvents {
     return apiResponse;
   }
 
+  @override
+  Future<ApiResponse> purchaseTickets(RequestBodyPurchasedTickets request) async {
+    ApiResponse apiResponse = ApiResponse();
+    String purchasedId = firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTicketPurchases).doc().id;
 
+    try {
+      await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTicketPurchases).doc(purchasedId).set({
+        "id": purchasedId,
+        "userId": request.userId,
+        "eventId": request.eventId,
+        "paymentMethod": request.paymentMethod,
+        "transactionId": request.transactionId,
+        "total": request.total,
+        "tickets": request.ticketIds,
+        "address": request.address,
+        "phoneNumber": request.phoneNumber,
+        "customerName": request.customerName,
+      });
 
+      CollectionReference ticketsRef =
+          firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(request.eventId).collection("tickets");
+      WriteBatch batch = firebaseInterceptor.getFirestore().batch();
+
+      for (var id in request.ticketIds) {
+        DocumentReference docRef = ticketsRef.doc(id);
+        batch.set(
+          docRef,
+          {
+            "purchasedBy": request.userId,
+          },
+          SetOptions(
+            merge: true,
+          ),
+        );
+      }
+
+      // Commit the batch
+      await batch.commit();
+
+      apiResponse.message = "Congratulations! Your tickets has been booked.";
+      apiResponse.statusCode = 200;
+    } catch (e) {
+      //if any error
+      apiResponse.message = "Unable to book ticket.";
+      apiResponse.statusCode = 501;
+    }
+
+    Debugger.debug(
+      title: "RepositoryGameEvents.purchaseTickets(): status-code",
+      data: apiResponse.statusCode,
+    );
+
+    return apiResponse;
+  }
 }

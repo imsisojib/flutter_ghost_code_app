@@ -6,9 +6,12 @@ import 'package:flutter_boilerplate_code/src/core/presentation/widgets/backgroun
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/providers/provider_game_events.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/widgets/dialog_purchase_tickets.dart';
+import 'package:flutter_boilerplate_code/src/helpers/widget_helper.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ScreenBuyTickets extends StatefulWidget {
@@ -143,9 +146,9 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                     height: 2.h,
                                   ),
                                   Text(
-                                    "G = Available",
+                                    "Y = Yellow",
                                     style: theme.textTheme.labelLarge?.copyWith(
-                                      color: AppColors.green,
+                                      color: AppColors.yellow,
                                     ),
                                   ),
                                   SizedBox(
@@ -159,9 +162,9 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                   ),
                                 ],
                               ),
-                              const Text(
-                                "Sync tour with upto 3 friends",
-                              ),
+                              // const Text(
+                              //   "Sync tour with upto 3 friends",
+                              // ),
                             ],
                           ),
                           SizedBox(
@@ -176,17 +179,16 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                 crossAxisCount: 2,
                                 //mainAxisSpacing: 50.h,
                                 //childAspectRatio: 5.0,
-                                mainAxisExtent: 70.h,
+                                mainAxisExtent: 80.h,
                               ),
                               itemBuilder: (_, index) {
-
                                 List<String> keys = providerGameEvents.mappedTickets.keys.toList();
-                                keys.sort((a,b)=> a.compareTo(b));
+                                keys.sort((a, b) => a.compareTo(b));
                                 String keySlot = keys[index];
-                                List<Ticket> tickets = providerGameEvents.mappedTickets[keySlot]?.toList()??[];
-                                try{
-                                  tickets.sort((a,b)=> a.serial!.compareTo(b.serial!));
-                                }catch(e){
+                                List<Ticket> tickets = providerGameEvents.mappedTickets[keySlot]?.toList() ?? [];
+                                try {
+                                  tickets.sort((a, b) => a.serial!.compareTo(b.serial!));
+                                } catch (e) {
                                   // sorting error
                                 }
 
@@ -209,13 +211,25 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 10,
                                           //childAspectRatio: 1.5,
-                                          mainAxisExtent: 20.h,
+                                          mainAxisExtent: 24.h,
                                         ),
                                         itemBuilder: (_, index) {
-                                          return Text(
-                                            "${tickets[index].serial}",
-                                            style: theme.textTheme.bodySmall?.copyWith(
-                                              color: AppColors.yellow,
+                                          return InkWell(
+                                            onTap: () {
+                                              if (tickets[index].purchasedBy == null) {
+                                                //means, able to select
+                                                providerGameEvents.updateSelectedTicket(tickets[index]);
+                                              }
+                                            },
+                                            child: Text(
+                                              "${tickets[index].serial}",
+                                              style: theme.textTheme.bodySmall?.copyWith(
+                                                color: tickets[index].purchasedBy != null
+                                                    ? AppColors.red
+                                                    : providerGameEvents.selectedTickets.contains(tickets[index])
+                                                        ? AppColors.blue
+                                                        : AppColors.yellow,
+                                              ),
                                             ),
                                           );
                                         },
@@ -229,6 +243,15 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                           BasicButton(
                             buttonText: "Schedule tour",
                             width: 220.w,
+                            onPressed: (){
+                              if(providerGameEvents.selectedTickets.isEmpty){
+                                Fluttertoast.showToast(msg: "Please select ticket first.");
+                                return;
+                              }
+
+                              WidgetHelper.showDialogWithDynamicContent(content: DialogPurchaseTickets());
+
+                            },
                           ),
                         ],
                       ),

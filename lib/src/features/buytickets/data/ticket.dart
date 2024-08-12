@@ -4,6 +4,7 @@ class Ticket {
   String? slot;
   String? serial;
   String? purchasedBy;
+  bool selected = false;  //only for local usages
 
   Ticket({
     this.id,
