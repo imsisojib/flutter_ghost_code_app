@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/di_container.dart';
-import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/empty.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_add_to_cart.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_clear_cart_products.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_cart_products.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_my_orders.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_product_hats.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_hoodie.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_fetch_products_tshirt.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/applications/usecase_place_order.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/cart_product.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/order.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/entities/product.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/requstbody/requestbody_checkout.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 
 class ProviderMerchandise extends ChangeNotifier {
   //states
@@ -23,6 +23,7 @@ class ProviderMerchandise extends ChangeNotifier {
   List<Product> _products = [];
   EProductType _productType = EProductType.tshirt;
   List<CartProduct> _cartProducts = [];
+  List<Order> _orders = [];
 
   //getters
   ELoading? get loading => _loading;
@@ -32,6 +33,8 @@ class ProviderMerchandise extends ChangeNotifier {
   EProductType get productType => _productType;
 
   List<CartProduct> get cartProducts => _cartProducts;
+
+  List<Order> get orders => _orders;
 
   //setters
   set loading(ELoading? state) {
@@ -136,7 +139,7 @@ class ProviderMerchandise extends ChangeNotifier {
   double calculateCheckoutTotal() {
     double total = 0;
     for (var element in _cartProducts) {
-      total += (element.price ?? 0)*(element.quantity ?? 0);
+      total += (element.price ?? 0) * (element.quantity ?? 0);
     }
 
     return total;
@@ -160,5 +163,18 @@ class ProviderMerchandise extends ChangeNotifier {
         fetchCartProducts();
       },
     );
+  }
+
+  Future<void> fetchMyOrders() async {
+    _orders.clear();
+    loading = ELoading.fetchingData;
+    var result = await UseCaseFetchMyOrders(repositoryMerchandise: sl()).execute(Empty());
+    result.fold(
+      (error) {},
+      (data) async {
+        _orders = data;
+      },
+    );
+    loading = null;
   }
 }
