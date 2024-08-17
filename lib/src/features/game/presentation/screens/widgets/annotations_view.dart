@@ -57,20 +57,20 @@ class AnnotationView extends StatelessWidget {
   Widget typeFactory(AnnotationType type) {
     IconData iconData = Icons.ac_unit_outlined;
     Color color = Colors.teal;
-    switch (type) {
-      case AnnotationType.pharmacy:
-        iconData = Icons.local_pharmacy_outlined;
-        color = Colors.red;
-        break;
-      case AnnotationType.hotel:
-        iconData = Icons.hotel_outlined;
-        color = Colors.green;
-        break;
-      case AnnotationType.library:
-        iconData = Icons.library_add_outlined;
-        color = Colors.blue;
-        break;
-    }
+    // switch (type) {
+    //   case AnnotationType.pharmacy:
+    //     iconData = Icons.local_pharmacy_outlined;
+    //     color = Colors.red;
+    //     break;
+    //   case AnnotationType.hotel:
+    //     iconData = Icons.hotel_outlined;
+    //     color = Colors.green;
+    //     break;
+    //   case AnnotationType.library:
+    //     iconData = Icons.library_add_outlined;
+    //     color = Colors.blue;
+    //     break;
+    // }
     return Icon(
       iconData,
       size: 40,

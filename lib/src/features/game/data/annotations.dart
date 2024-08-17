@@ -4,7 +4,8 @@ import 'package:ar_location_view/ar_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uuid/uuid.dart';
 
-enum AnnotationType { pharmacy, hotel, library }
+//enum AnnotationType { pharmacy, hotel, library }
+enum AnnotationType {ghost}
 
 class Annotation extends ArAnnotation {
   final AnnotationType type;
@@ -20,8 +21,8 @@ AnnotationType getRandomAnnotation() {
 
 List<Annotation> fakeAnnotation({
   required Position position,
-  int distance = 1500,
-  int numberMaxPoi = 100,
+  int distance = 500,
+  int numberMaxPoi = 1,
 }) {
   return List<Annotation>.generate(
     numberMaxPoi,
@@ -34,7 +35,8 @@ List<Annotation> fakeAnnotation({
           distance / 100000,
           distance / 100000,
         ),
-        type: getRandomAnnotation(),
+        //type: getRandomAnnotation(),
+        type: AnnotationType.ghost,
       );
     },
   );

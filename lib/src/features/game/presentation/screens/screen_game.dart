@@ -17,7 +17,6 @@ class ScreenGame extends StatefulWidget {
 }
 
 class _ScreenGameState extends State<ScreenGame> {
-
   List<Annotation> annotations = [];
 
   @override
@@ -33,9 +32,19 @@ class _ScreenGameState extends State<ScreenGame> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(height: 32.h,),
-                  Image.asset(AppImages.emfMeter,height: 120.h,width: 120.h,),
-                  Image.asset(AppImages.demoWaveForm,height: 120.h,width: 120.h,),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Image.asset(
+                    AppImages.emfMeter,
+                    height: 120.h,
+                    width: 120.h,
+                  ),
+                  Image.asset(
+                    AppImages.demoWaveForm,
+                    height: 120.h,
+                    width: 120.h,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +63,9 @@ class _ScreenGameState extends State<ScreenGame> {
                           style: theme.textTheme.bodySmall,
                         ),
                       ),
-                      SizedBox(width: 8.w,),
+                      SizedBox(
+                        width: 8.w,
+                      ),
                       Container(
                         decoration: BoxDecoration(
                           color: AppColors.primaryColorLight.withOpacity(.6),
@@ -71,32 +82,39 @@ class _ScreenGameState extends State<ScreenGame> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 32.h,),
+                  SizedBox(
+                    height: 32.h,
+                  ),
                 ],
               ),
             ),
-            Expanded(child: ArLocationWidget(
-              annotations: annotations,
-              showDebugInfoSensor: false,
-              annotationWidth: 180,
-              annotationHeight: 60,
-              radarPosition: RadarPosition.bottomCenter,
-              annotationViewBuilder: (context, annotation) {
-                return AnnotationView(
-                  key: ValueKey(annotation.uid),
-                  annotation: annotation as Annotation,
-                );
-              },
-              radarWidth: 160,
-              scaleWithDistance: false,
-              onLocationChange: (Position position) {
-                Future.delayed(const Duration(seconds: 5), () {
-                  annotations =
-                      fakeAnnotation(position: position, numberMaxPoi: 50);
-                  setState(() {});
-                });
-              },
-            ),),
+            Expanded(
+              child: ArLocationWidget(
+                annotations: annotations,
+                showDebugInfoSensor: false,
+                annotationWidth: MediaQuery.of(context).size.width,
+                annotationHeight: MediaQuery.of(context).size.height,
+                radarPosition: RadarPosition.bottomCenter,
+                annotationViewBuilder: (context, annotation) {
+                  // return AnnotationView(
+                  //   key: ValueKey(annotation.uid),
+                  //   annotation: annotation as Annotation,
+                  // );
+                  return Image.asset(
+                    "assets/gifs/skeleton_ghost.gif",
+                    fit: BoxFit.cover,
+                  );
+                },
+                radarWidth: 160,
+                scaleWithDistance: false,
+                onLocationChange: (Position position) {
+                  Future.delayed(const Duration(seconds: 5), () {
+                    annotations = fakeAnnotation(position: position, numberMaxPoi: 1);
+                    setState(() {});
+                  });
+                },
+              ),
+            ),
             SizedBox(
               width: 150.w,
               child: FittedBox(
@@ -104,11 +122,26 @@ class _ScreenGameState extends State<ScreenGame> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: 16.h,),
-                    Image.asset(AppImages.ad1,height: 110.h,width: 110.h,),
-                    Image.asset(AppImages.ad2,height: 110.h,width: 110.h,),
-                    Image.asset(AppImages.appLogo, height: 70,),
-                    SizedBox(height: 16.h,),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    Image.asset(
+                      AppImages.ad1,
+                      height: 110.h,
+                      width: 110.h,
+                    ),
+                    Image.asset(
+                      AppImages.ad2,
+                      height: 110.h,
+                      width: 110.h,
+                    ),
+                    Image.asset(
+                      AppImages.appLogo,
+                      height: 70,
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 8.w,
@@ -129,7 +162,9 @@ class _ScreenGameState extends State<ScreenGame> {
                         },
                       ),
                     ),
-                    SizedBox(height: 16.h,),
+                    SizedBox(
+                      height: 16.h,
+                    ),
                   ],
                 ),
               ),
