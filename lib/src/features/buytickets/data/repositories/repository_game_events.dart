@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_boilerplate_code/src/config/config_firebase.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/api_response.dart';
 import 'package:flutter_boilerplate_code/src/core/domain/interfaces/interface_firebase_interceptor.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/game_event.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/request_bodys/requestbody_purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/domain/i_repository_game_events.dart';
@@ -117,6 +119,62 @@ class RepositoryGameEvents implements IRepositoryGameEvents {
     Debugger.debug(
       title: "RepositoryGameEvents.fetchTickets(): status-code",
       data: apiResponse.statusCode,
+    );
+
+    return apiResponse;
+  }
+
+  @override
+  Future<ApiResponse<List<PurchasedTickets>>> fetchPurchasedTickets() async{
+
+    String? userId = firebaseInterceptor.getAuth().currentUser?.uid;
+    if(userId==null){
+      return ApiResponse(
+        statusCode: 401,
+        message: "Unauthorized! Please login first.",
+      );
+    }
+    ApiResponse<List<PurchasedTickets>> apiResponse = ApiResponse();
+
+    try{
+      List<PurchasedTickets> purchasedTickets = [];
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTicketPurchases).where("userId",isEqualTo: userId).get();
+      if(querySnapshot.docs.isNotEmpty){
+        //means data found
+        querySnapshot.docs.forEach((doc) async {
+          var purchaseOrder = PurchasedTickets.fromJson(doc.data());
+          ///fetching purchased ticket's details
+          List<Ticket> tickets = [];
+          purchaseOrder.ticketIds?.forEach((ticketId) async {
+            DocumentSnapshot<Map<String,dynamic>> documentSnapshot = await firebaseInterceptor.getFirestore().collection(ConfigFirebase.tableTours).doc(purchaseOrder.eventId).collection("tickets").doc(ticketId).get();
+            if(documentSnapshot.exists){
+              tickets.add(Ticket.fromJson(documentSnapshot.data()!));
+            }
+          });
+
+          purchaseOrder.tickets = tickets;
+          purchasedTickets.add(purchaseOrder);
+        });
+
+        apiResponse.data = purchasedTickets;
+        apiResponse.message = "Successful";
+        apiResponse.statusCode = 200;
+
+      }else{
+        apiResponse.data = [];
+        apiResponse.message = "No purchase history found!";
+        apiResponse.statusCode = 400;
+      }
+    }catch(e){
+      Debugger.debug(
+        title: "RepositoryGameEvents.fetchPurchasedTickets(): parsing-error",
+        data: e,
+      );
+    }
+
+    Debugger.debug(
+      title: "RepositoryGameEvents.fetchPurchasedTickets(): response",
+      data: apiResponse.toString(),
     );
 
     return apiResponse;

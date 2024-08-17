@@ -6,11 +6,13 @@ import 'package:flutter_boilerplate_code/src/features/account/presentation/scree
 import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_signup.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_signup_complete.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/screen_buy_tickets.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/screen_purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/errors/presentation/screens/screen_error.dart';
 import 'package:flutter_boilerplate_code/src/features/game/presentation/screens/screen_game.dart';
 import 'package:flutter_boilerplate_code/src/features/home/presentation/screens/screen_home.dart';
 import 'package:flutter_boilerplate_code/src/features/locations/presentation/screens/screen_locations.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_merchandise.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/screens/screen_my_orders.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_payment_method.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_settings.dart';
 import 'package:flutter_boilerplate_code/src/features/settings/presentation/screens/screen_share.dart';
@@ -68,12 +70,21 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenMerchandise();
   });
+  static final Handler _myOrdersScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenMyOrders();
+  });
 
   ///BUY-TICKETS
   static final Handler _buyTicketsScreenHandler =
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenBuyTickets();
   });
+  static final Handler _purchasedTicketsScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenPurchasedTickets();
+  });
+
 
   ///LOCATIONS
   static final Handler _locationScreenHandler =
@@ -127,9 +138,11 @@ class RouterHelper {
 
     ///MERCHANDISE
     router.define(Routes.merchandiseScreen, handler: _merchandiseScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.ordersScreen, handler: _myOrdersScreenHandler, transitionType: TransitionType.fadeIn);
 
     ///BUY-TICKETS
     router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.purchasedTicketsScreen, handler: _purchasedTicketsScreenHandler, transitionType: TransitionType.fadeIn);
     ///LOCATIONS
     router.define(Routes.locationScreen, handler: _locationScreenHandler, transitionType: TransitionType.fadeIn);
     ///TUTORIAL

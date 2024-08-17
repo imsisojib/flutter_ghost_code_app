@@ -15,4 +15,8 @@ class ApiResponse<T>{
     message = json["message"];
   }
 
+  @override
+  String toString() {
+    return 'ApiResponse{statusCode: $statusCode, data: $data, message: $message}';
+  }
 }

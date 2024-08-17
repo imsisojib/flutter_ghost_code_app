@@ -11,11 +11,14 @@ class Routes {
   ///ACCOUNT
   static const String accountSettingsScreen = "/account";
   static const String accountInformationScreen = "/account/information";
-  //MERCHANDISE
+
+  ///MERCHANDISE
   static const String merchandiseScreen = "/merchandise";
+  static const String ordersScreen = "/merchandise/orders";
 
   ///BUY TICKETS
   static const String buyTicketsScreen = "/tickets";
+  static const String purchasedTicketsScreen = "/tickets/purchased";
 
   ///LOCATIONS
   static const String locationScreen = "/locations";

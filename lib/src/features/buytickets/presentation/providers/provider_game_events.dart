@@ -3,9 +3,11 @@ import 'package:flutter_boilerplate_code/di_container.dart';
 import 'package:flutter_boilerplate_code/src/core/application/navigation_service.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/data/models/empty.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/applications/usecase_fetch_ticket_purchases.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/applications/usecase_fetch_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/applications/usecase_purchase_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/game_event.dart';
+import 'package:flutter_boilerplate_code/src/features/buytickets/data/purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/request_bodys/requestbody_purchased_tickets.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/domain/i_repository_game_events.dart';
@@ -18,6 +20,7 @@ class ProviderGameEvents extends ChangeNotifier {
   GameEvent? _event;
   Map<String, List<Ticket>> _mappedTickets = {};
   Set<Ticket> _selectedTickets = {};
+  List<PurchasedTickets> _purchases = [];
 
   //getters
   ELoading? get loading => _loading;
@@ -27,6 +30,8 @@ class ProviderGameEvents extends ChangeNotifier {
   Map<String, List<Ticket>> get mappedTickets => _mappedTickets;
 
   Set<Ticket> get selectedTickets => _selectedTickets;
+
+  List<PurchasedTickets> get purchases => _purchases;
 
   //setters
   set loading(ELoading? state) {
@@ -117,6 +122,21 @@ class ProviderGameEvents extends ChangeNotifier {
       (message) {
         Fluttertoast.showToast(msg: message);
         Navigator.pushNamedAndRemoveUntil(sl<NavigationService>().navigatorKey.currentContext!, Routes.homeScreen, (route) => false);
+      },
+    );
+    loading = null;
+  }
+
+  Future<void> fetchPurchasedTickets() async {
+    _purchases.clear();
+    loading = ELoading.fetchingData;
+    var result = await UseCaseTicketPurchases(repositoryGameEvents: sl()).execute(Empty());
+    result.fold(
+      (error) {
+        Fluttertoast.showToast(msg: error.message);
+      },
+      (data) {
+        _purchases = data;
       },
     );
     loading = null;

@@ -57,6 +57,9 @@ class ScreenAccountSettings extends StatelessWidget {
                   Expanded(
                     child: BasicButton(
                       buttonText: "My Orders",
+                      onPressed: (){
+                        Navigator.pushNamed(context, Routes.ordersScreen);
+                      },
                     ),
                   ),
                   SizedBox(
@@ -65,6 +68,9 @@ class ScreenAccountSettings extends StatelessWidget {
                   Expanded(
                     child: BasicButton(
                       buttonText: "Purchased Tickets",
+                      onPressed: (){
+                        Navigator.pushNamed(context, Routes.purchasedTicketsScreen);
+                      },
                     ),
                   ),
                 ],
