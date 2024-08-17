@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
+import 'package:flutter_boilerplate_code/src/core/presentation/widgets/ghost_appbar.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/data/enums/e_product_type.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/widgets/dialog_add_to_cart.dart';
@@ -38,90 +39,20 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: AppColors.onPrimaryColorDark,
-        automaticallyImplyLeading: false,
-        flexibleSpace: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Merchandise",
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Nick",
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Image.asset(
-                            AppImages.demoAvatar,
-                            height: 24,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_left_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                      IconButton(
-                        iconSize: 20,
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
-                        },
-                        icon: Image.asset(
-                          AppImages.iconHome,
-                          height: 24.h,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.buyTicketsScreen,);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_right_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
+      appBar: GhostAppBar(
+        title: 'Merchandise',
+        onBack: (){
+          Navigator.pop(context);
+        },
+        onHome: (){
+          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+        },
+        onNext: (){
+          Navigator.pushNamed(
+            context,
+            Routes.buyTicketsScreen,
+          );
+        },
       ),
       body: Consumer<ProviderMerchandise>(
         builder: (_, providerMerchandise, child) {

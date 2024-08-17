@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate_code/src/core/data/enums/e_loading.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
+import 'package:flutter_boilerplate_code/src/core/presentation/widgets/ghost_appbar.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/data/ticket.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/providers/provider_game_events.dart';
 import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/screens/widgets/dialog_purchase_tickets.dart';
@@ -38,88 +39,20 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
 
     return Consumer<ProviderGameEvents>(builder: (_, providerGameEvents, child) {
       return Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: AppColors.onPrimaryColorDark,
-          automaticallyImplyLeading: false,
-          flexibleSpace: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Schedule Tour",
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Nick",
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Image.asset(
-                              AppImages.demoAvatar,
-                              height: 24,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_left_sharp,
-                            color: AppColors.primaryColorDark,
-                            size: 40,
-                          ),
-                        ),
-                        IconButton(
-                          iconSize: 20,
-                          onPressed: () {
-                            Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
-                          },
-                          icon: Image.asset(
-                            AppImages.iconHome,
-                            height: 24.h,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.locationScreen);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_right_sharp,
-                            color: AppColors.primaryColorDark,
-                            size: 40,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+        appBar: GhostAppBar(
+          title: 'Schedule Tour',
+          onBack: (){
+            Navigator.pop(context);
+          },
+          onHome: (){
+            Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+          },
+          onNext: (){
+            Navigator.pushNamed(
+              context,
+              Routes.locationScreen,
+            );
+          },
         ),
         body: Background(
           child: providerGameEvents.loading == ELoading.loading

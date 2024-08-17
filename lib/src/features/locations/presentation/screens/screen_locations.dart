@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
+import 'package:flutter_boilerplate_code/src/core/presentation/widgets/ghost_appbar.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/textfields/advance_textfield_with_label.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
@@ -14,88 +15,20 @@ class ScreenLocations extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: AppColors.onPrimaryColorDark,
-        automaticallyImplyLeading: false,
-        flexibleSpace: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Locations",
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Nick",
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Image.asset(
-                            AppImages.demoAvatar,
-                            height: 24,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_left_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                      IconButton(
-                        iconSize: 20,
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
-                        },
-                        icon: Image.asset(
-                          AppImages.iconHome,
-                          height: 24.h,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, Routes.settingsScreen);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_right_sharp,
-                          color: AppColors.primaryColorDark,
-                          size: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
+      appBar: GhostAppBar(
+        title: 'Locations',
+        onBack: (){
+          Navigator.pop(context);
+        },
+        onHome: (){
+          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+        },
+        onNext: (){
+          Navigator.pushNamed(
+            context,
+            Routes.settingsScreen,
+          );
+        },
       ),
       body: Background(
         child: Row(
