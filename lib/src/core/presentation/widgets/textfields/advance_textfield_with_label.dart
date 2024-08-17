@@ -136,10 +136,10 @@ class _AdvanceTextFormFieldWithLabelState extends State<AdvanceTextFormFieldWith
           hintText: widget.hintText,
           //labelText: widget.labelText,
           hintStyle: theme.textTheme.bodyLarge?.copyWith(
-            color: AppColors.textColorDark,
+            color: AppColors.yellow.withOpacity(.6),
           ),
           labelStyle: theme.textTheme.bodyMedium?.copyWith(
-            color: AppColors.textColorDark,
+            color: AppColors.yellow.withOpacity(.6),
           ),
           enabled: widget.enabled,
           counterText: "",
