@@ -49,66 +49,63 @@ class _ScreenLoginByEmailState extends State<ScreenLoginByEmail> {
         centerTitle: true,
       ),
       body: Background(
-        child: Padding(
-          padding: const EdgeInsets.all(34),
-          child: LayoutBuilder(
-            builder: (_, constraints) {
-              return FittedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AppImages.appLogo,
-                      height: 78.h,
-                      width: 100.w,
-                    ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    AdvanceTextFormFieldWithLabel(
-                      hintText: "Email",
-                      controller: _emailController,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (String? value) {
-                        if (!ValidationHelper.isValidEmail(value)) {
-                          return "* Invalid email";
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    AdvanceTextFormFieldWithLabel(
-                      hintText: "Password",
-                      controller: _passwordController,
-                    ),
-                    SizedBox(
-                      height: 32.h,
-                    ),
-                    Selector<ProviderAccount, ELoading?>(
-                        builder: (_, loading, child) {
-                          return loading == ELoading.submitButtonLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : BasicButton(
-                                  width: 160.w,
-                                  buttonText: "Login",
-                                  backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
-                                  onPressed: () {
-                                    context.read<ProviderAccount>().loginByEmailAndPassword(
-                                          email: _emailController?.text ?? "",
-                                          password: _passwordController?.text ?? "",
-                                        );
-                                  },
-                                );
-                        },
-                        selector: (_, providerAccount)=> providerAccount.loading)
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.appLogo,
+                  height: 60.h,
                 ),
-              );
-            },
+                SizedBox(
+                  height: 24.h,
+                ),
+                AdvanceTextFormFieldWithLabel(
+                  hintText: "Email",
+                  width: 400.w,
+                  controller: _emailController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (String? value) {
+                    if (!ValidationHelper.isValidEmail(value)) {
+                      return "* Invalid email";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                AdvanceTextFormFieldWithLabel(
+                  width: 400.w,
+                  hintText: "Password",
+                  controller: _passwordController,
+                ),
+                SizedBox(
+                  height: 32.h,
+                ),
+                Selector<ProviderAccount, ELoading?>(
+                    builder: (_, loading, child) {
+                      return loading == ELoading.submitButtonLoading
+                          ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                          : BasicButton(
+                        width: 160.w,
+                        buttonText: "Login",
+                        backgroundColor: AppColors.primaryColorDark.withOpacity(.5),
+                        onPressed: () {
+                          context.read<ProviderAccount>().loginByEmailAndPassword(
+                            email: _emailController?.text ?? "",
+                            password: _passwordController?.text ?? "",
+                          );
+                        },
+                      );
+                    },
+                    selector: (_, providerAccount)=> providerAccount.loading)
+              ],
+            ),
           ),
         ),
       ),

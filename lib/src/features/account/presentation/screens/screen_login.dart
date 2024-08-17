@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ScreenLogin extends StatelessWidget {
   const ScreenLogin({super.key});
@@ -88,23 +89,33 @@ class ScreenLogin extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: Image.asset(AppImages.iconApple),
+                    InkWell(
+                      onTap: (){
+                        Fluttertoast.showToast(msg: "Coming soon!");
+                      },
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Image.asset(AppImages.iconApple),
+                        ),
                       ),
                     ),
                     SizedBox(
                       width: 20.w,
                     ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: Image.asset(AppImages.iconGoogle),
+                    InkWell(
+                      onTap: (){
+                        Fluttertoast.showToast(msg: "Coming soon!");
+                      },
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Image.asset(AppImages.iconGoogle),
+                        ),
                       ),
                     )
                   ],
