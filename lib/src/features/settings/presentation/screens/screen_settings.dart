@@ -159,13 +159,8 @@ class ScreenSettings extends StatelessWidget {
                   SizedBox(
                     width: 24.w,
                   ),
-                  Expanded(
-                    child: BasicButton(
-                      buttonText: "Logout",
-                      onPressed: () {
-                        context.read<ProviderAccount>().logout();
-                      },
-                    ),
+                  const Expanded(
+                    child: SizedBox(),
                   ),
                 ],
               ),

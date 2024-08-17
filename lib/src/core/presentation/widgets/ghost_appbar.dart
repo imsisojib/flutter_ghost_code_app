@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/providers/provider_account.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class GhostAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function? onBack;
   final Function? onNext;
   final Function? onHome;
+  final bool showProfile;
 
   const GhostAppBar({
     super.key,
@@ -18,6 +20,7 @@ class GhostAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBack,
     this.onNext,
     this.onHome,
+    this.showProfile = true,
   });
 
   @override
@@ -46,37 +49,42 @@ class GhostAppBar extends StatelessWidget implements PreferredSizeWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Consumer<ProviderAccount>(
+                    showProfile? Consumer<ProviderAccount>(
                       builder: (_, providerAccount, child) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              providerAccount.currentModel?.displayName??"",
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
+                        return InkWell(
+                          onTap: (){
+                            Navigator.pushNamed(context,  Routes.accountSettingsScreen);
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                providerAccount.currentModel?.displayName??"",
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Container(
-                              height: 24.h,
-                              width: 24.h,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primaryColorLight,
-                                shape: BoxShape.circle,
+                              SizedBox(
+                                width: 8.w,
                               ),
-                              child: CachedNetworkImage(
-                                imageUrl: providerAccount.currentModel?.profilePic ?? "",
-                                placeholder: (context, url) => const SizedBox(),
-                                errorWidget: (context, url, error) => const SizedBox(),
+                              Container(
+                                height: 24.h,
+                                width: 24.h,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primaryColorLight,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl: providerAccount.currentModel?.profilePic ?? "",
+                                  placeholder: (context, url) => const SizedBox(),
+                                  errorWidget: (context, url, error) => const SizedBox(),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
-                    ),
+                    ): const SizedBox(),
                   ],
                 ),
                 Row(

@@ -1,4 +1,6 @@
 import 'package:fluro/fluro.dart';
+import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_account_information.dart';
+import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_account_settings.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_login.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_login_by_email.dart';
 import 'package:flutter_boilerplate_code/src/features/account/presentation/screens/screen_signup.dart';
@@ -49,6 +51,17 @@ class RouterHelper {
   Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
     return const ScreenSignupComplete();
   });
+
+  ///ACCOUNT
+  static final Handler _accountSettingsScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenAccountSettings();
+  });
+  static final Handler _accountInformationScreenHandler =
+  Handler(handlerFunc: (context, Map<String, dynamic> parameters) {
+    return const ScreenAccountInformation();
+  });
+
 
   ///MERCHANDISE
   static final Handler _merchandiseScreenHandler =
@@ -102,11 +115,15 @@ class RouterHelper {
     router.define(Routes.homeScreen, handler: _homeScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.splashScreen, handler: _splashScreenHandler, transitionType: TransitionType.fadeIn);
 
-    ///AUTH]
+    ///AUTH
     router.define(Routes.loginScreen, handler: _loginScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.loginByEmailScreen, handler: _loginByEmailScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.signupByEmailScreen, handler: _signUpScreenHandler, transitionType: TransitionType.fadeIn);
     router.define(Routes.signupCompleteScreen, handler: _signUpCompleteScreenHandler, transitionType: TransitionType.fadeIn);
+
+    ///ACCOUNT
+    router.define(Routes.accountSettingsScreen, handler: _accountSettingsScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.accountInformationScreen, handler: _accountInformationScreenHandler, transitionType: TransitionType.fadeIn);
 
     ///MERCHANDISE
     router.define(Routes.merchandiseScreen, handler: _merchandiseScreenHandler, transitionType: TransitionType.fadeIn);
