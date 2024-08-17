@@ -48,19 +48,47 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text(
-                    "Merchandise",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Merchandise",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Nick",
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Image.asset(
+                            AppImages.demoAvatar,
+                            height: 24,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         icon: const Icon(
                           Icons.arrow_left_sharp,
                           color: AppColors.primaryColorDark,
@@ -69,37 +97,23 @@ class _ScreenMerchandiseState extends State<ScreenMerchandise> {
                       ),
                       IconButton(
                         iconSize: 20,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+                        },
                         icon: Image.asset(
                           AppImages.iconHome,
                           height: 24.h,
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.buyTicketsScreen,);
+                        },
                         icon: const Icon(
                           Icons.arrow_right_sharp,
                           color: AppColors.primaryColorDark,
                           size: 40,
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Nick",
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Image.asset(
-                        AppImages.demoAvatar,
-                        height: 24,
                       ),
                     ],
                   ),

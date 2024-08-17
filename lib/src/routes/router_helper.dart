@@ -103,26 +103,26 @@ class RouterHelper {
     router.define(Routes.splashScreen, handler: _splashScreenHandler, transitionType: TransitionType.fadeIn);
 
     ///AUTH]
-    router.define(Routes.loginScreen, handler: _loginScreenHandler, transitionType: TransitionType.cupertino);
-    router.define(Routes.loginByEmailScreen, handler: _loginByEmailScreenHandler, transitionType: TransitionType.cupertino);
-    router.define(Routes.signupByEmailScreen, handler: _signUpScreenHandler, transitionType: TransitionType.cupertino);
-    router.define(Routes.signupCompleteScreen, handler: _signUpCompleteScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.loginScreen, handler: _loginScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.loginByEmailScreen, handler: _loginByEmailScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.signupByEmailScreen, handler: _signUpScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.signupCompleteScreen, handler: _signUpCompleteScreenHandler, transitionType: TransitionType.fadeIn);
 
     ///MERCHANDISE
-    router.define(Routes.merchandiseScreen, handler: _merchandiseScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.merchandiseScreen, handler: _merchandiseScreenHandler, transitionType: TransitionType.fadeIn);
 
     ///BUY-TICKETS
-    router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.buyTicketsScreen, handler: _buyTicketsScreenHandler, transitionType: TransitionType.fadeIn);
     ///LOCATIONS
-    router.define(Routes.locationScreen, handler: _locationScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.locationScreen, handler: _locationScreenHandler, transitionType: TransitionType.fadeIn);
     ///TUTORIAL
-    router.define(Routes.tutorialScreen, handler: _tutorialScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.tutorialScreen, handler: _tutorialScreenHandler, transitionType: TransitionType.fadeIn);
     ///GAME
-    router.define(Routes.gameScreenHandler, handler: _gameScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.gameScreenHandler, handler: _gameScreenHandler, transitionType: TransitionType.fadeIn);
     ///SETTINGS
-    router.define(Routes.settingsScreen, handler: _settingsScreenHandler, transitionType: TransitionType.cupertino);
-    router.define(Routes.paymentMethodScreen, handler: _paymentScreenHandler, transitionType: TransitionType.cupertino);
-    router.define(Routes.shareScreen, handler: _shareScreenHandler, transitionType: TransitionType.cupertino);
+    router.define(Routes.settingsScreen, handler: _settingsScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.paymentMethodScreen, handler: _paymentScreenHandler, transitionType: TransitionType.fadeIn);
+    router.define(Routes.shareScreen, handler: _shareScreenHandler, transitionType: TransitionType.fadeIn);
   }
 
 }

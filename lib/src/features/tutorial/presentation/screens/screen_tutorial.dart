@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate_code/src/core/presentation/widgets/background.dart';
-import 'package:flutter_boilerplate_code/src/core/presentation/widgets/buttons/basic_button.dart';
-import 'package:flutter_boilerplate_code/src/core/presentation/widgets/textfields/advance_textfield_with_label.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenTutorial extends StatelessWidget {
@@ -62,7 +59,9 @@ class ScreenTutorial extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         icon: const Icon(
                           Icons.arrow_left_sharp,
                           color: AppColors.primaryColorDark,
@@ -71,14 +70,18 @@ class ScreenTutorial extends StatelessWidget {
                       ),
                       IconButton(
                         iconSize: 20,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+                        },
                         icon: Image.asset(
                           AppImages.iconHome,
                           height: 24.h,
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.shareScreen);
+                        },
                         icon: const Icon(
                           Icons.arrow_right_sharp,
                           color: AppColors.primaryColorDark,

@@ -10,6 +10,7 @@ import 'package:flutter_boilerplate_code/src/features/buytickets/presentation/sc
 import 'package:flutter_boilerplate_code/src/helpers/widget_helper.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_colors.dart';
 import 'package:flutter_boilerplate_code/src/resources/app_images.dart';
+import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +84,9 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: const Icon(
                             Icons.arrow_left_sharp,
                             color: AppColors.primaryColorDark,
@@ -92,14 +95,18 @@ class _ScreenBuyTicketsState extends State<ScreenBuyTickets> {
                         ),
                         IconButton(
                           iconSize: 20,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamedAndRemoveUntil(context, Routes.homeScreen, (route) => false);
+                          },
                           icon: Image.asset(
                             AppImages.iconHome,
                             height: 24.h,
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.locationScreen);
+                          },
                           icon: const Icon(
                             Icons.arrow_right_sharp,
                             color: AppColors.primaryColorDark,

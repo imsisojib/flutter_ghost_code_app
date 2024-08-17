@@ -91,9 +91,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                     children: [
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_left_sharp,
-                          color: AppColors.primaryColorDark,
+                          color: AppColors.primaryColorDark.withOpacity(.5),
                           size: 40,
                         ),
                       ),
@@ -106,7 +106,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.merchandiseScreen,);
+                        },
                         icon: const Icon(
                           Icons.arrow_right_sharp,
                           color: AppColors.primaryColorDark,
