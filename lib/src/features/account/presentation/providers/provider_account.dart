@@ -13,9 +13,10 @@ import 'package:flutter_boilerplate_code/src/features/account/data/entities/avat
 import 'package:flutter_boilerplate_code/src/features/account/data/entities/user_model.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_login.dart';
 import 'package:flutter_boilerplate_code/src/features/account/data/requestbodys/requestbody_signup.dart';
-import 'package:flutter_boilerplate_code/src/features/account/domain/i_repository_account.dart';
+import 'package:flutter_boilerplate_code/src/features/merchandise/presentation/providers/provider_merchandise.dart';
 import 'package:flutter_boilerplate_code/src/routes/routes.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ProviderAccount extends ChangeNotifier {
   //states
@@ -161,6 +162,7 @@ class ProviderAccount extends ChangeNotifier {
 
   Future<void> logout() async {
     await sl<IFirebaseInterceptor>().getAuth().signOut();
+    await sl<NavigationService>().navigatorKey.currentContext!.read<ProviderMerchandise>().clearCacheCart();
     Navigator.pushNamedAndRemoveUntil(
       sl<NavigationService>().navigatorKey.currentContext!,
       Routes.loginScreen,

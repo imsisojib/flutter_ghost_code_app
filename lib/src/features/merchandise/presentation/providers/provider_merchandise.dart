@@ -177,4 +177,8 @@ class ProviderMerchandise extends ChangeNotifier {
     );
     loading = null;
   }
+
+  Future<void> clearCacheCart() async {
+    await UseCaseClearCart(repositoryCart: sl()).execute(Empty());
+  }
 }
